@@ -6,7 +6,6 @@ Option Infer Off
 Option Strict On
 
 Imports System.IO
-Imports System.Windows.Forms
 
 Imports CodeCoverage.Coverlet.Core
 
@@ -165,6 +164,7 @@ Public Class Form1
         With OpenFileDialog1
             .AddExtension = True
             .DefaultExt = "json"
+            .InitialDirectory = My.Settings.DefaultProjectDirectory
             .FileName = "coverage"
             .Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"
             .FilterIndex = 0
@@ -191,7 +191,11 @@ Public Class Form1
     End Sub
 
     Private Sub mnuOptionsShowCodeCoverageJson_Click(sender As Object, e As EventArgs) Handles mnuOptionsShowCodeCoverageJson.Click
-        s_codeCoverageForm.Visible = mnuOptionsShowCodeCoverageJson.Checked
+        If s_codeCoverageForm Is Nothing Then
+            mnuOptionsShowCodeCoverageJson.Checked = False
+        Else
+            s_codeCoverageForm.Visible = mnuOptionsShowCodeCoverageJson.Checked
+        End If
     End Sub
 
     Private Sub MRU_AddTo(Path As String, TopLevelMenu As ToolStripMenuItem)

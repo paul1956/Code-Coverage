@@ -1,12 +1,11 @@
 ﻿' Licensed to the .NET Foundation under one or more agreements.
 ' The .NET Foundation licenses this file to you under the MIT license.
 ' See the LICENSE file in the project root for more information.
-Imports System.Drawing
 Imports System.IO
 
 Public Module CodeColorSelector
 
-    Private ReadOnly ColorMappingDictionary As New Dictionary(Of String, Color) From {
+    Private ReadOnly ColorMappingDictionary As New Dictionary(Of String, Color)(StringComparer.OrdinalIgnoreCase) From {
          {"class name", Color.FromArgb(0, 128, 128)},
          {"comment", Color.FromArgb(0, 100, 0)},
          {"constant name", Color.Black},
@@ -74,7 +73,7 @@ Public Module CodeColorSelector
             Exit Sub
         End If
         Dim FileStream As FileStream = File.OpenRead(FPath)
-        Dim sr As New IO.StreamReader(FileStream)
+        Dim sr As New StreamReader(FileStream)
         sr.ReadLine()
         While (sr.Peek() <> -1)
             Dim line As String = sr.ReadLine()
@@ -92,7 +91,7 @@ Public Module CodeColorSelector
 
     Private Sub WriteColorDictionaryToFile(FPath As String)
         Dim FileStream As FileStream = File.OpenWrite(FPath)
-        Dim sw As New IO.StreamWriter(FileStream)
+        Dim sw As New StreamWriter(FileStream)
         sw.WriteLine($"Key,A,R,G,B")
         For Each kvp As KeyValuePair(Of String, Color) In ColorMappingDictionary
             sw.WriteLine($"{kvp.Key},{kvp.Value.A},{kvp.Value.R},{kvp.Value.G},{kvp.Value.B}")
@@ -102,7 +101,7 @@ Public Module CodeColorSelector
         FileStream.Close()
     End Sub
 
-    Friend Function GetColorFromName(Name As String) As Color
+    Public Function GetColorFromName(Name As String) As Color
         Try
             If String.IsNullOrWhiteSpace(Name) Then
                 Return ColorMappingDictionary("default")

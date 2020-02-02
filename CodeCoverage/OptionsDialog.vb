@@ -1,11 +1,12 @@
-﻿Imports System.Drawing
-Imports System.Windows.Forms
+﻿' Licensed to the .NET Foundation under one or more agreements.
+' The .NET Foundation licenses this file to you under the MIT license.
+' See the LICENSE file in the project root for more information.
 
 Public Class OptionsDialog
     Private _selectedColor As Color
     Private _selectedColorName As String = "default"
 
-    Private Sub Cancel_Button_Click(sender As Object, e As System.EventArgs) Handles Cancel_Button.Click
+    Private Sub Cancel_Button_Click(sender As Object, e As EventArgs) Handles Cancel_Button.Click
         DialogResult = DialogResult.Cancel
         Close()
     End Sub
@@ -33,7 +34,7 @@ Public Class OptionsDialog
     Private Sub ItemColor_ComboBox_DrawItem(sender As Object, e As DrawItemEventArgs) Handles ItemColor_ComboBox.DrawItem
         If e.Index >= 0 Then
             Dim n As String = CType(sender, ComboBox).Items(e.Index).ToString()
-            Using f As New Font("Arial", 9, FontStyle.Regular)
+            Using f As New Font("Segoe UI", 9, FontStyle.Regular)
                 Dim c As Color = CodeColorSelector.GetColorFromName(n)
                 Using b As Brush = New SolidBrush(c)
                     Dim rect As Rectangle = e.Bounds
@@ -50,7 +51,9 @@ Public Class OptionsDialog
         _selectedColor = CodeColorSelector.GetColorFromName(_selectedColorName)
     End Sub
 
-    Private Sub OK_Button_Click(sender As Object, e As System.EventArgs) Handles OK_Button.Click
+    Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
+        My.Settings.DefaultProjectDirectory = CType(ProjectDirectoryList.SelectedItem, MyListItem).Value
+        My.Settings.Save()
         DialogResult = DialogResult.OK
         CodeColorSelector.WriteColorDictionaryToFile()
         CoverageColorSelector.WriteColorDictionaryToFile()
@@ -94,4 +97,5 @@ Public Class OptionsDialog
             Application.DoEvents()
         End If
     End Sub
+
 End Class

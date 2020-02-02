@@ -1,7 +1,4 @@
 ﻿Imports System.ComponentModel
-Imports System.Data
-Imports System.Drawing
-Imports System.Windows.Forms
 Imports CodeCoverage.Coverlet.Core
 
 Public Class CodeCoverageForm
@@ -213,7 +210,6 @@ Public Class CodeCoverageForm
 
     Public Sub LoadJSONFile(FileWithPath As String)
         CoverletResult = New CoverletTreeView(FileWithPath, TreeView1, _documentList, _methodArrayList)
-        DocumentToolStripComboBox.BeginUpdate()
         DocumentToolStripComboBox.ComboBox.DisplayMember = "ShortName"
         DocumentToolStripComboBox.ComboBox.ValueMember = "FullPath"
         DocumentToolStripComboBox.ComboBox.DataSource = _documentList

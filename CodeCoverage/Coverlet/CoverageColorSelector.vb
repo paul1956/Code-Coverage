@@ -1,5 +1,4 @@
-﻿Imports System.Drawing
-Imports System.IO
+﻿Imports System.IO
 
 Public Module CoverageColorSelector
 
@@ -11,7 +10,7 @@ Public Module CoverageColorSelector
             Exit Sub
         End If
         Dim FileStream As FileStream = File.OpenRead(FPath)
-        Dim sr As New IO.StreamReader(FileStream)
+        Dim sr As New StreamReader(FileStream)
         sr.ReadLine()
         While (sr.Peek() <> -1)
             Dim line As String = sr.ReadLine()
@@ -29,7 +28,7 @@ Public Module CoverageColorSelector
 
     Private Sub WriteColorDictionaryToFile(FPath As String)
         Dim FileStream As FileStream = File.OpenWrite(FPath)
-        Dim sw As New IO.StreamWriter(FileStream)
+        Dim sw As New StreamWriter(FileStream)
         sw.WriteLine($"Key,A,R,G,B")
         For Each kvp As KeyValuePair(Of String, Color) In CoverageColors.ColorMappingDictionary
             sw.WriteLine($"{kvp.Key},{kvp.Value.A},{kvp.Value.R},{kvp.Value.G},{kvp.Value.B}")
