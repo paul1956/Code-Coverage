@@ -6,6 +6,7 @@ Option Infer Off
 Option Strict On
 
 Imports System.IO
+Imports System.Windows.Forms
 
 Imports CodeCoverage.Coverlet.Core
 
@@ -14,10 +15,22 @@ Public Class Form1
     Private Const MRUTag As String = "MRU:"
     Private _solutionDirectory As String = ""
     Private _sourceExtension As String
+    Private Shared s_codeCoverageForm As CodeCoverageForm
     Public Property LoadedDocument As String
+
     Private Shared Function GetMenuItemOwnerItem(sender As Object) As ToolStripMenuItem
         Return CType(CType(sender, ToolStripMenuItem).OwnerItem, ToolStripMenuItem)
     End Function
+
+#If Not netcoreapp5_0 Then
+    Public Sub New()
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+    End Sub
+
+#End If
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' Load all settings
@@ -100,7 +113,7 @@ Public Class Form1
                           'safe to access the form or controls in here
                           MeForm.LineNumbersForRichTextBoxSource.Visible = False
                           MeForm.ResizeRichTextBuffers()
-                          Colorize(MeForm.RichTextBoxSource, MeForm.LoadedDocument, MeForm.ToolStripProgressBar1)
+                          Colorize(MeForm, MeForm.RichTextBoxSource, MeForm.LoadedDocument, MeForm.ToolStripProgressBar1)
                           MeForm.LineNumbersForRichTextBoxSource.Visible = True
                           MeForm.ResizeRichTextBuffers()
                           MeForm.TSCoverageSummary.Text = $"{MeForm.LoadedDocument} Coverage - {CoverletTreeView.DocumentCoverageSummary}"
@@ -132,7 +145,7 @@ Public Class Form1
                 MRU_AddTo(OpenFileDialog1.FileName, GetMenuItemOwnerItem(sender))
                 LineNumbersForRichTextBoxSource.Visible = False
                 ResizeRichTextBuffers()
-                Colorize(RichTextBoxSource, OpenFileDialog1.FileName, ToolStripProgressBar1)
+                Colorize(Me, RichTextBoxSource, OpenFileDialog1.FileName, ToolStripProgressBar1)
                 LineNumbersForRichTextBoxSource.Visible = True
                 ResizeRichTextBuffers()
                 With CoverletTreeView.DocumentCoverageSummary
@@ -178,7 +191,7 @@ Public Class Form1
     End Sub
 
     Private Sub mnuOptionsShowCodeCoverageJson_Click(sender As Object, e As EventArgs) Handles mnuOptionsShowCodeCoverageJson.Click
-        CodeCoverageForm.Visible = mnuOptionsShowCodeCoverageJson.Checked
+        s_codeCoverageForm.Visible = mnuOptionsShowCodeCoverageJson.Checked
     End Sub
 
     Private Sub MRU_AddTo(Path As String, TopLevelMenu As ToolStripMenuItem)
@@ -252,9 +265,12 @@ Public Class Form1
     Private Sub OpenCoverageFileAndLoadTreeView(FileWithPath As String)
         My.Settings.Last_jsonFile = FileWithPath
         My.Settings.Save()
-        CodeCoverageForm.RTFForm = Me
-        CodeCoverageForm.LoadJSONFile(FileWithPath)
-        CodeCoverageForm.Show()
+        If s_codeCoverageForm Is Nothing Then
+            s_codeCoverageForm = New CodeCoverageForm
+        End If
+        s_codeCoverageForm.RTFForm = Me
+        s_codeCoverageForm.LoadJSONFile(FileWithPath)
+        s_codeCoverageForm.Show()
         mnuCoverage.Enabled = True
     End Sub
 
@@ -313,7 +329,9 @@ Public Class Form1
     End Sub
 
     Private Sub MnuOptionsAdvanced_Click(sender As Object, e As EventArgs) Handles mnuOptionsAdvanced.Click
-        OptionsDialog.ShowDialog(Me)
+        Using o As New OptionsDialog
+            Dim r As DialogResult = o.ShowDialog(Me)
+        End Using
     End Sub
 
     Private Sub MnuFile_Click(sender As Object, e As EventArgs) Handles mnuFile.Click

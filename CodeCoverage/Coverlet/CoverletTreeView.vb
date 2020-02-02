@@ -1,4 +1,6 @@
-﻿Imports System.IO
+﻿Imports System.Drawing
+Imports System.IO
+Imports System.Windows.Forms
 
 Namespace Coverlet.Core
 

@@ -1,4 +1,6 @@
-﻿Public Class MethodClass
+﻿Imports System.Windows.Forms
+
+Public Class MethodClass
 
     Sub New(mDocumentLongName As String, mMethodNode As TreeNode, mMethodLongName As String)
         _DocumentLongName = mDocumentLongName

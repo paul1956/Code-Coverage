@@ -1,5 +1,7 @@
 ﻿Imports System.ComponentModel
-
+Imports System.Data
+Imports System.Drawing
+Imports System.Windows.Forms
 Imports CodeCoverage.Coverlet.Core
 
 Public Class CodeCoverageForm
@@ -40,7 +42,7 @@ Public Class CodeCoverageForm
 
     Private Sub CodeCoverageForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         If RTFForm Is Nothing Then
-            RTFForm = Form1
+            RTFForm = New Form1
         End If
         TopMost = True
         Left = RTFForm.Right - (Width + 20)
@@ -53,7 +55,7 @@ Public Class CodeCoverageForm
     End Sub
 
     Private Sub CodeCoverageForm_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
-        Form1.mnuOptionsShowCodeCoverageJson.Checked = Visible
+        RTFForm.mnuOptionsShowCodeCoverageJson.Checked = Visible
     End Sub
 
     Private Sub DocumentToolStripComboBox_DropDown(sender As Object, e As EventArgs) Handles DocumentToolStripComboBox.DropDown

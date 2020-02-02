@@ -1,4 +1,7 @@
-﻿Public Class OptionsDialog
+﻿Imports System.Drawing
+Imports System.Windows.Forms
+
+Public Class OptionsDialog
     Private _selectedColor As Color
     Private _selectedColorName As String = "default"
 

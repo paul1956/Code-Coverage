@@ -1,10 +1,17 @@
-﻿Imports System.IO
+﻿' Licensed to the .NET Foundation under one or more agreements.
+' The .NET Foundation licenses this file to you under the MIT license.
+' See the LICENSE file in the project root for more information.
+Imports System.Drawing
+Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports System.Windows.Forms
+
 Imports CodeCoverage
 Imports CodeCoverage.Coverlet.Core
-Imports CodeCoverage.Coverlet.Core.CoverletTreeView
 
 Imports Microsoft.CodeAnalysis
+
+Imports VBMsgBox
 
 Public Module ColorRTB
 
@@ -104,7 +111,7 @@ Public Module ColorRTB
         Return LineText.Length - 1
     End Function
 
-    Friend Sub Colorize(TextToCompile As String, ConversionBuffer As RichTextBox, FileName As String, ProgressBar As ToolStripProgressBar)
+    Friend Sub Colorize(CallingForm As Form1, TextToCompile As String, ConversionBuffer As RichTextBox, FileName As String, ProgressBar As ToolStripProgressBar)
         Dim FileSummaryStaticics As New CoverageSummary
 
         Dim FragmentRange As IEnumerable(Of Range) = GetClassifiedRanges(TextToCompile, LanguageNames.VisualBasic)
@@ -124,7 +131,7 @@ Public Module ColorRTB
                     .Select(.TextLength, 0)
                     .SelectionColor = CodeColorSelector.GetColorFromName(_Range.ClassificationType)
                     .AppendText(_Range.Text)
-                    If _Range.Text.Contains(vbLf) Then
+                    If _Range.Text.Contains(vbLf, StringComparison.OrdinalIgnoreCase) Then
                         Progress.UpdateProgress(_Range.Text.Count(CType(vbLf, Char)))
                         Application.DoEvents()
                     End If
@@ -142,13 +149,14 @@ Public Module ColorRTB
                 Next
                 .Select(0, 0)
                 .ScrollToCaret()
-                Form1.LabelCodeCoverage.Text = $"Project Coverage - {FileSummaryStaticics}"
+                CallingForm.LabelCodeCoverage.Text = $"Project Coverage - {FileSummaryStaticics}"
             End With
         Catch ex As Exception
             Stop
         End Try
     End Sub
-    Friend Sub Colorize(ConversionBuffer As RichTextBox, FileName As String, ProgressBar As ToolStripProgressBar)
+
+    Friend Sub Colorize(CallingForm As Form1, ConversionBuffer As RichTextBox, FileName As String, ProgressBar As ToolStripProgressBar)
         Try ' Prevent crash when exiting
             With ConversionBuffer
                 .Clear()
@@ -157,7 +165,7 @@ Public Module ColorRTB
                 Using FileStream As FileStream = File.OpenRead(FileName)
                     TextToCompile = GetFileTextFromStream(FileStream)
                     Application.DoEvents()
-                    Colorize(TextToCompile, ConversionBuffer, FileName, ProgressBar)
+                    Colorize(CallingForm, TextToCompile, ConversionBuffer, FileName, ProgressBar)
                 End Using
 
             End With
