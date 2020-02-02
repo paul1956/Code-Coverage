@@ -1,4 +1,6 @@
-﻿Public NotInheritable Class CoverageColors
+﻿Imports System.Drawing
+
+Public NotInheritable Class CoverageColors
 
     Public Shared ReadOnly ColorMappingDictionary As New Dictionary(Of String, Color) From {
       {"Default", Color.FromArgb(255, 255, 255, 255)},

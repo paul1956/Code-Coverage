@@ -1,9 +1,6 @@
 ﻿' Licensed to the .NET Foundation under one or more agreements.
 ' The .NET Foundation licenses this file to you under the MIT license.
 ' See the LICENSE file in the project root for more information.
-Option Explicit On
-Option Infer Off
-Option Strict On
 
 Imports System.IO
 
@@ -37,7 +34,7 @@ Public Module FileSupport
             Dim DirectoryFileName As String = Path.GetFileName(dir)
             If DirectoryFileName.StartsWith(VisualStudioBaseName, StringComparison.InvariantCultureIgnoreCase) Then
                 If Directory.Exists(Path.Combine(dir, "Projects")) Then
-                    Dim VSVersion As Integer = CInt(DirectoryFileName.Replace(VisualStudioBaseName, ""))
+                    Dim VSVersion As Integer = CInt(DirectoryFileName.Replace(VisualStudioBaseName, "", StringComparison.OrdinalIgnoreCase))
                     If VSVersion > LatestVersion Then
                         LatestVersion = VSVersion
                     End If

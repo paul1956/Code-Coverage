@@ -1,172 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F9CD4CE-0BD5-49EF-8689-294F7AB95E59}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>CodeCoverage.My.MyApplication</StartupObject>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>CodeCoverage</RootNamespace>
-    <AssemblyName>CodeCoverage</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <LangVersion>15.5</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <DefineDebug>true</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>CodeCoverage.xml</DocumentationFile>
-    <NoWarn>
-    </NoWarn>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <DefineDebug>false</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>CodeCoverage.xml</DocumentationFile>
-    <NoWarn>
-    </NoWarn>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup>
-    <OptionExplicit>On</OptionExplicit>
-  </PropertyGroup>
-  <PropertyGroup>
+    <StartupObject>CodeCoverage.Form1</StartupObject>
+    <UseWindowsForms>true</UseWindowsForms>
+    <LangVersion>16</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OptionCompare>Text</OptionCompare>
-  </PropertyGroup>
-  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionInfer>Off</OptionInfer>
     <OptionStrict>On</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionInfer>Off</OptionInfer>
+    <Version>1.1.0.0</Version>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RepositoryType>GitHub</RepositoryType>
+    <RepositoryUrl>https://github.com/paul1956/CodeCoverage</RepositoryUrl>
+    <Authors>Paul M Cohen</Authors>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup>
-    <Import Include="Microsoft.VisualBasic" />
-    <Import Include="System" />
-    <Import Include="System.Collections" />
-    <Import Include="System.Collections.Generic" />
-    <Import Include="System.Data" />
-    <Import Include="System.Drawing" />
-    <Import Include="System.Diagnostics" />
-    <Import Include="System.Windows.Forms" />
-    <Import Include="System.Linq" />
-    <Import Include="System.Xml.Linq" />
-    <Import Include="System.Threading.Tasks" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DirectoryClass.vb" />
-    <Compile Include="Extensions\ArrayListExtension.vb" />
-    <Compile Include="MethodClass.vb" />
-    <Compile Include="MyListItem.vb" />
-    <Compile Include="CodeCoverageForm.Designer.vb">
+    <Compile Update="CodeCoverageForm.Designer.vb">
       <DependentUpon>CodeCoverageForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="CodeCoverageForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CodeColorSelector.vb" />
-    <Compile Include="Coverlet\CoverageColors.vb" />
-    <Compile Include="Coverlet\CoverageColorSelector.vb" />
-    <Compile Include="Coverlet\ColorRTB.vb" />
-    <Compile Include="Coverlet\CoverageSummary.vb" />
-    <Compile Include="Coverlet\Enums\ThresholdTypeFlags.vb" />
-    <Compile Include="Coverlet\Enums\ThresholdStatistic.vb" />
-    <Compile Include="Extensions\SpecializedCollection.vb" />
-    <Compile Include="Extensions\StringExtensions.vb" />
-    <Compile Include="Form1.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Coverlet\CoverletTreeView.vb" />
-    <Compile Include="IReportProgress.vb" />
-    <Compile Include="LineNumbersForRichTextBox.vb">
+    <Compile Update="LineNumbersForRichTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Coverlet\CoverageResult.vb" />
-    <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="My Project\Application.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Settings.Designer.vb">
+    <Compile Update="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="OptionsDialog.Designer.vb">
+    <Compile Update="OptionsDialog.Designer.vb">
       <DependentUpon>OptionsDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="OptionsDialog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProcessDirectoriesModule.vb" />
-    <Compile Include="Range.vb" />
-    <Compile Include="RangeSupport.vb" />
-    <Compile Include="ReportProgress.vb" />
-    <Compile Include="Utilities\FileSupport.vb" />
-    <Compile Include="Utilities\UnicodeNewline.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CodeCoverageForm.resx">
-      <DependentUpon>CodeCoverageForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.resx">
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OptionsDialog.resx">
-      <DependentUpon>OptionsDialog.vb</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".editorconfig" />
-    <None Include="My Project\Application.myapp">
+    <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-    <None Include="My Project\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <CustomToolNamespace>My</CustomToolNamespace>
-      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis">
@@ -186,12 +60,14 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common">
       <Version>3.4.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="VBMsgBox" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Coverlet\Extensions\" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

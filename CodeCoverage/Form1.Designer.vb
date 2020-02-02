@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿Imports System.Windows.Forms
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
@@ -48,7 +50,7 @@ Partial Class Form1
         Me.TSCoverageSummary = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TSFilePath = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
-        Me.LineNumbersForRichTextBoxSource = New CodeCoverage.LineNumbersForRichTextBox()
+        Me.LineNumbersForRichTextBoxSource = New LineNumbersForRichTextBox()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -208,7 +210,7 @@ Partial Class Form1
         Me.LineNumbersForRichTextBoxSource.BorderLinesColor = System.Drawing.Color.SlateGray
         Me.LineNumbersForRichTextBoxSource.BorderLinesStyle = System.Drawing.Drawing2D.DashStyle.Dot
         Me.LineNumbersForRichTextBoxSource.BorderLinesThickness = 1.0!
-        Me.LineNumbersForRichTextBoxSource.DockSide = CodeCoverage.LineNumbersForRichTextBox.LineNumberDockSides.Left
+        Me.LineNumbersForRichTextBoxSource.DockSide = LineNumbersForRichTextBox.LineNumberDockSides.Left
         Me.LineNumbersForRichTextBoxSource.GridLinesColor = System.Drawing.Color.SlateGray
         Me.LineNumbersForRichTextBoxSource.GridLinesStyle = System.Drawing.Drawing2D.DashStyle.Dot
         Me.LineNumbersForRichTextBoxSource.GridLinesThickness = 1.0!
@@ -220,7 +222,7 @@ Partial Class Form1
         Me.LineNumbersForRichTextBoxSource.LineNumbersOffset = New System.Drawing.Size(0, 0)
         resources.ApplyResources(Me.LineNumbersForRichTextBoxSource, "LineNumbersForRichTextBoxSource")
         Me.LineNumbersForRichTextBoxSource.MarginLinesColor = System.Drawing.Color.SlateGray
-        Me.LineNumbersForRichTextBoxSource.MarginLinesSide = CodeCoverage.LineNumbersForRichTextBox.LineNumberDockSides.Right
+        Me.LineNumbersForRichTextBoxSource.MarginLinesSide = LineNumbersForRichTextBox.LineNumberDockSides.Right
         Me.LineNumbersForRichTextBoxSource.MarginLinesStyle = System.Drawing.Drawing2D.DashStyle.Solid
         Me.LineNumbersForRichTextBoxSource.MarginLinesThickness = 1.0!
         Me.LineNumbersForRichTextBoxSource.Name = "LineNumbersForRichTextBoxSource"
