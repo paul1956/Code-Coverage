@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28CB705E-2BEC-4BA6-83FE-0298DCE93F7E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		CodeCoverageDemo.jpg = CodeCoverageDemo.jpg
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject

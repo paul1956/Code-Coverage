@@ -27,19 +27,21 @@ description: "VB Code Coverage"
 - 02/01/2019
 
 ## Description
-This application will allow visual analysis of Coverlet JSON files. It creates a tree view of the JSON file which shows coverage for every function.
+This application will allow visual analysis of Coverlet JSON files. It creates a tree view of the JSON file which shows coverage for every function. You can filter by Document File then Method.
 
-You can filter by Document File or Method.
+Hovering over file or method will display information from that point in the tree down.
 
 Clicking on a function will open it up in a another window where coverage is shown in a syntax highlighted file.
 
 https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json is added to NuGet Package Source to find
 Microsoft.Dotnet.XUnitExtensions which provides ConditionalFact and PlatformSpecific attributes used for testing.
 
+![Code Coverage Demo Image](CodeCoverageDemo.jpg)
+
 New in Release 1.0
+First public release
 
-
-## Code Coverage
+## Code Coverage Example Output
 ```
 +------------------+--------+--------+--------+
 | Module           | Line   | Branch | Method |
