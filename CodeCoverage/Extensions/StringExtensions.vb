@@ -9,9 +9,13 @@ Imports Microsoft.CodeAnalysis
 Public Module StringExtensions
 
     <Extension()>
+    Public Function ToColor(source As String) As Color
+        Return Color.FromArgb(Convert.ToInt32(source, 16))
+    End Function
+
+    <Extension()>
     Public Function Count(value As String, ch As Char) As Integer
         Contracts.Contract.Requires(value IsNot Nothing)
         Return value.Count(Function(c As Char) c = ch)
     End Function
-
 End Module

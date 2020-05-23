@@ -3,20 +3,32 @@
     <PropertyGroup>
         <RootNamespace></RootNamespace>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <OptionStrict>On</OptionStrict>
+        <OptionCompare>Text</OptionCompare>
+        <OptionInfer>Off</OptionInfer>
+        <Version>1.1.0.0</Version>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="coverlet.collector" Version="1.2.0">
+        <PackageReference Include="coverlet.collector" Version="1.2.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="coverlet.msbuild" Version="2.8.0">
+        <PackageReference Include="coverlet.msbuild" Version="2.8.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="DiffPlex" Version="1.5.0" />
+        <PackageReference Include="DiffPlex" Version="1.6.2" />
         <PackageReference Include="Microsoft.DotNet.XUnitExtensions" Version="2.4.1-beta.20077.3" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
             <PrivateAssets>all</PrivateAssets>

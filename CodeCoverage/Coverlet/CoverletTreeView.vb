@@ -34,9 +34,12 @@ Namespace Coverlet.Core
 
         Private Shared Function ColorParentNodes(parentNode As TreeNode, NodeColor As Color) As TreeNode
             Dim TempNode As TreeNode = parentNode
-            While TempNode.Tag.ToString <> CodeCoverageTag
+            While TempNode IsNot Nothing AndAlso TempNode.Tag?.ToString <> CodeCoverageTag
                 If TempNode.BackColor.IsEmpty OrElse NodeColor = CoverageColors.LineHit OrElse NodeColor = CoverageColors.BranchHit OrElse NodeColor = CoverageColors.MethodHit Then
                     TempNode.BackColor = NodeColor
+                End If
+                If TempNode.Parent Is Nothing Then
+                    Return TempNode
                 End If
                 TempNode = TempNode.Parent
             End While

@@ -127,7 +127,9 @@ Public Module ColorRTB
                 For i As Integer = 0 To FragmentRange.Count - 1
                     Dim _Range As Range = FragmentRange(i)
                     .Select(.TextLength, 0)
-                    .SelectionColor = CodeColorSelector.GetColorFromName(_Range.ClassificationType)
+                    Dim ClassificationColor As (ForegroundColor As Color, BackGroundColor As Color) = GetColorFromName(_Range.ClassificationType)
+                    .SelectionColor = ClassificationColor.ForegroundColor
+                    .SelectionBackColor = ClassificationColor.BackGroundColor
                     .AppendText(_Range.Text)
                     If _Range.Text.Contains(vbLf, StringComparison.OrdinalIgnoreCase) Then
                         Progress.UpdateProgress(_Range.Text.Count(CType(vbLf, Char)))

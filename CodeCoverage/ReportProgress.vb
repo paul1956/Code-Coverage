@@ -14,7 +14,7 @@ Public Class ReportProgress
 
     Private ReadOnly Property ProgressBar As ToolStripProgressBar
 
-    Private Sub pbPrecentage(pb As ToolStripProgressBar, Text As String)
+    Private Shared Sub pbPrecentage(pb As ToolStripProgressBar, Text As String)
         Using gr As Graphics = pb.ProgressBar.CreateGraphics()
             'Switch to Anti-aliased drawing for better (smoother) graphic results
             gr.SmoothingMode = SmoothingMode.AntiAlias
@@ -48,4 +48,5 @@ Public Class ReportProgress
             Application.DoEvents()
         End If
     End Sub
+
 End Class

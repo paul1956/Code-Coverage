@@ -12,24 +12,34 @@ Imports CodeCoverage.Coverlet.Core
 Public Class Form1
     Private Const CoverageFileName As String = "Coverage.json"
     Private Const MRUTag As String = "MRU:"
+    Private Shared s_codeCoverageForm As CodeCoverageForm
     Private _solutionDirectory As String = ""
     Private _sourceExtension As String
-    Private Shared s_codeCoverageForm As CodeCoverageForm
     Public Property LoadedDocument As String
 
     Private Shared Function GetMenuItemOwnerItem(sender As Object) As ToolStripMenuItem
         Return CType(CType(sender, ToolStripMenuItem).OwnerItem, ToolStripMenuItem)
     End Function
 
-#If Not netcoreapp5_0 Then
-    Public Sub New()
-        ' This call is required by the designer.
-        InitializeComponent()
+    Private Shared Function GetSolutionDirectory(FullPath As String) As String
+        Dim FullDirectoryName As String = New FileInfo(FullPath).Directory.FullName
+        While FullDirectoryName.Length > 0
+            If Directory.GetFiles(FullDirectoryName, "*.sln").Any Then
+                Return FullDirectoryName
+            End If
+            FullDirectoryName = Directory.GetParent(FullDirectoryName)?.FullName
+        End While
+        Return ""
+    End Function
 
-        ' Add any initialization after the InitializeComponent() call.
-    End Sub
-
-#End If
+    Private Shared Function TryGetResultsDirectory(Last_jsonFile As String, ByRef TestResultsDirectory As String) As Boolean
+        Dim TestResultsDirectoryInfo As DirectoryInfo = Directory.GetParent(Last_jsonFile).Parent
+        If TestResultsDirectoryInfo.Name = "TestResults" Then
+            TestResultsDirectory = TestResultsDirectoryInfo.FullName
+            Return True
+        End If
+        Return False
+    End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' Load all settings
@@ -40,7 +50,17 @@ Public Class Form1
         End If
 
         CoverageColorSelector.UpdateColorDictionaryFromFile()
-        CodeColorSelector.UpdateColorDictionaryFromFile()
+        CodeColorSelector.UpdateDictionaryFromFile()
+
+        Dim ExecutablePath As String = Reflection.Assembly.GetExecutingAssembly().Location
+        Dim ExecutableDirectory As String = Directory.GetParent(ExecutablePath).FullName
+        If String.IsNullOrWhiteSpace(My.Settings.LastTheme) Then
+            My.Settings.LastTheme = "BigFace.xml"
+            My.Settings.Save()
+        End If
+        'Dim ThemePath As String = Path.Combine(ExecutableDirectory, "Assets", My.Settings.LastTheme)
+        'Dim CurrentTheme As Themes = CodeColorSelector.LoadNewTheme(ThemePath)
+        'CodeColorSelector.LoadDictionaryFromTheme(CurrentTheme)
 
         If String.IsNullOrWhiteSpace(My.Settings.DefaultProjectDirectory) Then
             My.Settings.DefaultProjectDirectory = GetLatestVisualStudioProjectPath()
@@ -52,6 +72,10 @@ Public Class Form1
         Width = Screen.PrimaryScreen.Bounds.Width
         Height = CInt(Screen.PrimaryScreen.Bounds.Height * 0.95)
         CenterToScreen()
+    End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        ResizeRichTextBuffers()
     End Sub
 
     Private Function GetLatestJasonFile(Last_jsonFile As String) As String
@@ -80,21 +104,6 @@ Public Class Form1
         Return Last_jsonFile
     End Function
 
-    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        ResizeRichTextBuffers()
-    End Sub
-
-    Private Function GetSolutionDirectory(FullPath As String) As String
-        Dim FullDirectoryName As String = New FileInfo(FullPath).Directory.FullName
-        While FullDirectoryName.Length > 0
-            If Directory.GetFiles(FullDirectoryName, "*.sln").Any Then
-                Return FullDirectoryName
-            End If
-            FullDirectoryName = Directory.GetParent(FullDirectoryName)?.FullName
-        End While
-        Return ""
-    End Function
-
     Private Sub LineNumbers_For_RichTextBoxSource_Resize(sender As Object, e As EventArgs) Handles LineNumbersForRichTextBoxSource.Resize
         ResizeRichTextBuffers()
     End Sub
@@ -105,19 +114,6 @@ Public Class Form1
         LoadedDocument = CType(sender, ToolStripMenuItem).Text
 
         LoadDocument(Me)
-    End Sub
-
-    Friend Sub LoadDocument(MeForm As Form1)
-        MeForm.Invoke(Sub()
-                          'safe to access the form or controls in here
-                          MeForm.LineNumbersForRichTextBoxSource.Visible = False
-                          MeForm.ResizeRichTextBuffers()
-                          Colorize(MeForm, MeForm.RichTextBoxSource, MeForm.LoadedDocument, MeForm.ToolStripProgressBar1)
-                          MeForm.LineNumbersForRichTextBoxSource.Visible = True
-                          MeForm.ResizeRichTextBuffers()
-                          MeForm.TSCoverageSummary.Text = $"{MeForm.LoadedDocument} Coverage - {CoverletTreeView.DocumentCoverageSummary}"
-                          MeForm.TSFilePath.Text = LoadedDocument
-                      End Sub)
     End Sub
 
     Private Sub mnu_MRUList_MouseDown(sender As Object, e As MouseEventArgs)
@@ -155,6 +151,10 @@ Public Class Form1
         End With
     End Sub
 
+    Private Sub MnuFile_Click(sender As Object, e As EventArgs) Handles mnuFile.Click
+        GetLatestJasonFile(My.Settings.Last_jsonFile)
+    End Sub
+
     Private Sub mnuFileExit_Click(sender As Object, e As EventArgs) Handles mnuFileExit.Click
         Close()
         End
@@ -188,6 +188,12 @@ Public Class Form1
         Dim FileInfo As FileInfo = New FileInfo(CoverageFileNameWithPath)
         Text = $"Code Coverage, file {FileInfo.Name}, Last Updated {FileInfo.LastWriteTime.Date.ToShortDateString} {FileInfo.LastWriteTime.TimeOfDay.Hours}:{FileInfo.LastWriteTime.ToShortTimeString}"
         OpenCoverageFileAndLoadTreeView(CoverageFileNameWithPath)
+    End Sub
+
+    Private Sub MnuOptionsAdvanced_Click(sender As Object, e As EventArgs) Handles mnuOptionsAdvanced.Click
+        Using o As New OptionsDialog
+            Dim r As DialogResult = o.ShowDialog(Me)
+        End Using
     End Sub
 
     Private Sub mnuOptionsShowCodeCoverageJson_Click(sender As Object, e As EventArgs) Handles mnuOptionsShowCodeCoverageJson.Click
@@ -245,11 +251,9 @@ Public Class Form1
             ' contains the full path so it can be opened later...
             If File.Exists(sPath) Then
 
-#Disable Warning CA2000 ' Dispose objects before losing scope
                 Dim clsItem As New ToolStripMenuItem(sPath) With {
                 .Tag = MRUTag & sPath
                 }
-#Enable Warning CA2000 ' Dispose objects before losing scope
                 ' hook into the click event handler so we can open the file later...
                 AddHandler clsItem.Click, AddressOf mnu_MRUList_Click
                 AddHandler clsItem.MouseDown, AddressOf mnu_MRUList_MouseDown
@@ -310,15 +314,6 @@ Public Class Form1
         End If
     End Sub
 
-    Private Shared Function TryGetResultsDirectory(Last_jsonFile As String, ByRef TestResultsDirectory As String) As Boolean
-        Dim TestResultsDirectoryInfo As DirectoryInfo = Directory.GetParent(Last_jsonFile).Parent
-        If TestResultsDirectoryInfo.Name = "TestResults" Then
-            TestResultsDirectory = TestResultsDirectoryInfo.FullName
-            Return True
-        End If
-        Return False
-    End Function
-
     Protected Overrides Sub OnLoad(e As EventArgs)
         SetStyle(ControlStyles.AllPaintingInWmPaint Or ControlStyles.UserPaint Or ControlStyles.DoubleBuffer, True)
         ' enable events...
@@ -332,14 +327,17 @@ Public Class Form1
         MRU_Update(mnuCoverage)
     End Sub
 
-    Private Sub MnuOptionsAdvanced_Click(sender As Object, e As EventArgs) Handles mnuOptionsAdvanced.Click
-        Using o As New OptionsDialog
-            Dim r As DialogResult = o.ShowDialog(Me)
-        End Using
-    End Sub
-
-    Private Sub MnuFile_Click(sender As Object, e As EventArgs) Handles mnuFile.Click
-        GetLatestJasonFile(My.Settings.Last_jsonFile)
+    Friend Sub LoadDocument(MeForm As Form1)
+        MeForm.Invoke(Sub()
+                          'safe to access the form or controls in here
+                          MeForm.LineNumbersForRichTextBoxSource.Visible = False
+                          MeForm.ResizeRichTextBuffers()
+                          Colorize(MeForm, MeForm.RichTextBoxSource, MeForm.LoadedDocument, MeForm.ToolStripProgressBar1)
+                          MeForm.LineNumbersForRichTextBoxSource.Visible = True
+                          MeForm.ResizeRichTextBuffers()
+                          MeForm.TSCoverageSummary.Text = $"{MeForm.LoadedDocument} Coverage - {CoverletTreeView.DocumentCoverageSummary}"
+                          MeForm.TSFilePath.Text = LoadedDocument
+                      End Sub)
     End Sub
 
 End Class

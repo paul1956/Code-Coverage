@@ -3,7 +3,7 @@
 ' See the LICENSE file in the project root for more information.
 
 Public Class OptionsDialog
-    Private _selectedColor As Color
+    Private _selectedColor As (ForeGround As Color, Background As Color)
     Private _selectedColorName As String = "default"
 
     Private Sub Cancel_Button_Click(sender As Object, e As EventArgs) Handles Cancel_Button.Click
@@ -15,7 +15,7 @@ Public Class OptionsDialog
         If e.Index >= 0 Then
             Dim n As String = CType(sender, ComboBox).Items(e.Index).ToString()
             Using f As New Font("Arial", 9, FontStyle.Regular)
-                Dim c As Color = CoverageColorSelector.GetColorFromName(n)
+                Dim c As Color = CoverageColorSelector.GetColorFromName(n).Foreground
                 Using b As Brush = New SolidBrush(c)
                     Dim rect As Rectangle = e.Bounds
                     Dim g As Graphics = e.Graphics
@@ -35,8 +35,8 @@ Public Class OptionsDialog
         If e.Index >= 0 Then
             Dim n As String = CType(sender, ComboBox).Items(e.Index).ToString()
             Using f As New Font("Segoe UI", 9, FontStyle.Regular)
-                Dim c As Color = CodeColorSelector.GetColorFromName(n)
-                Using b As Brush = New SolidBrush(c)
+                Dim c As (ForeGround As Color, Background As Color) = CodeColorSelector.GetColorFromName(CoverageColors.ColorMappingDictionary, n)
+                Using b As Brush = New SolidBrush(c.ForeGround)
                     Dim rect As Rectangle = e.Bounds
                     Dim g As Graphics = e.Graphics
                     g.DrawString(n, f, Brushes.Black, rect.X, rect.Top)
@@ -48,7 +48,7 @@ Public Class OptionsDialog
 
     Private Sub ItemColor_ComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ItemColor_ComboBox.SelectedIndexChanged
         _selectedColorName = CStr(ItemColor_ComboBox.SelectedItem)
-        _selectedColor = CodeColorSelector.GetColorFromName(_selectedColorName)
+        _selectedColor = CodeColorSelector.GetColorFromName(CoverageColors.ColorMappingDictionary, _selectedColorName)
     End Sub
 
     Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
@@ -82,18 +82,18 @@ Public Class OptionsDialog
     End Sub
 
     Private Sub UpdateCoverageColor_Click(sender As Object, e As EventArgs) Handles UpdateCoverageColor.Click
-        ColorDialog1.Color = _selectedColor
+        ColorDialog1.Color = _selectedColor.ForeGround
         If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
-            CoverageColorSelector.SetColor(CoverageColor_ComboBox.Items(CoverageColor_ComboBox.SelectedIndex).ToString, ColorDialog1.Color)
+            CoverageColorSelector.SetColor(CoverageColor_ComboBox.Items(CoverageColor_ComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
             Application.DoEvents()
         End If
 
     End Sub
 
     Private Sub UpdateItemColor_Button_Click(sender As Object, e As EventArgs) Handles UpdateItemColor_Button.Click
-        ColorDialog1.Color = _selectedColor
+        ColorDialog1.Color = _selectedColor.ForeGround
         If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
-            CodeColorSelector.SetColor(ItemColor_ComboBox.Items(ItemColor_ComboBox.SelectedIndex).ToString, ColorDialog1.Color)
+            CodeColorSelector.SetColor(ItemColor_ComboBox.Items(ItemColor_ComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
             Application.DoEvents()
         End If
     End Sub

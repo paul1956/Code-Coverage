@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+
 Imports CodeCoverage.Coverlet.Core
 
 Public Class CodeCoverageForm
@@ -32,9 +33,29 @@ Public Class CodeCoverageForm
         Return table
     End Function
 
+    Private Shared Sub GotoLine(RTF_Box As RichTextBox, WantedLine_One_Based As Integer)
+        Dim index As Integer = RTF_Box.GetFirstCharIndexFromLine(WantedLine_One_Based - 1)
+        While index < RTF_Box.TextLength - 1
+            If RTF_Box.Text.Substring(index, 1) <> " " Then
+                Exit While
+            End If
+            index += 1
+        End While
+        RTF_Box.HideSelection = False
+        RTF_Box.Select(index, 0)
+        RTF_Box.ScrollToCaret()
+        RTF_Box.Focus()
+        Application.DoEvents()
+    End Sub
+
     Private Sub backgroundWorker1_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         ' Get the BackgroundWorker object that raised this event.
         RTFForm.LoadDocument(CType(e.Argument, Form1))
+    End Sub
+
+    Private Sub CodeCoverageForm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        _dT.Dispose()
+        _dV.Dispose()
     End Sub
 
     Private Sub CodeCoverageForm_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -87,21 +108,6 @@ Public Class CodeCoverageForm
         MethodToolStripComboBox.ComboBox.DisplayMember = "MethodShortName"
         MethodToolStripComboBox.SelectedIndex = -1
         Initializing = False
-    End Sub
-
-    Private Sub GotoLine(RTF_Box As RichTextBox, WantedLine_One_Based As Integer)
-        Dim index As Integer = RTF_Box.GetFirstCharIndexFromLine(WantedLine_One_Based - 1)
-        While index < RTF_Box.TextLength - 1
-            If RTF_Box.Text.Substring(index, 1) <> " " Then
-                Exit While
-            End If
-            index += 1
-        End While
-        RTF_Box.HideSelection = False
-        RTF_Box.Select(index, 0)
-        RTF_Box.ScrollToCaret()
-        RTF_Box.Focus()
-        Application.DoEvents()
     End Sub
 
     Private Sub LoadDocumentIfNeeded(DocumentName As String)
@@ -225,11 +231,6 @@ Public Class CodeCoverageForm
         MethodToolStripComboBox.ComboBox.DataSource = _dT
         MethodToolStripComboBox.SelectedIndex = -1
         Initializing = False
-    End Sub
-
-    Private Sub CodeCoverageForm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        _dT.Dispose()
-        _dV.Dispose()
     End Sub
 
 End Class

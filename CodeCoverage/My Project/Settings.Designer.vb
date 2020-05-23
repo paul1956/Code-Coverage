@@ -20,6 +20,7 @@ Namespace CodeCoverage.My_Project
         Inherits Global.System.Configuration.ApplicationSettingsBase
 
         Private Shared defaultInstance As Settings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New Settings()), Settings)
+
         Public Shared ReadOnly Property [Default]() As Settings
             Get
                 Return defaultInstance
@@ -72,6 +73,17 @@ Namespace CodeCoverage.My_Project
                 Me("DefaultProjectDirectory") = Value
             End Set
         End Property
-    End Class
 
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("")>
+        Public Property LastTheme() As String
+            Get
+                Return CType(Me("LastTheme"), String)
+            End Get
+            Set
+                Me("LastTheme") = Value
+            End Set
+        End Property
+    End Class
 End Namespace
