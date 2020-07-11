@@ -84,7 +84,4 @@
         <Import Include="System.Drawing" />
         <Import Include="System.Windows.Forms" />
     </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Coverlet\Extensions\" />
-    </ItemGroup>
 </Project>

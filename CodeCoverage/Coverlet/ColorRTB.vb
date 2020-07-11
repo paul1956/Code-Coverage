@@ -123,6 +123,7 @@ Public Module ColorRTB
                 ConversionBuffer.SelectionStart = 0
                 ConversionBuffer.SelectionLength = 0
                 ConversionBuffer.ScrollToCaret()
+                ConversionBuffer.Suspend
                 Dim currentColor As Color = Nothing
                 For i As Integer = 0 To FragmentRange.Count - 1
                     Dim _Range As Range = FragmentRange(i)
@@ -136,6 +137,7 @@ Public Module ColorRTB
                         Application.DoEvents()
                     End If
                 Next i
+                ConversionBuffer.Resume
                 Dim MaxLines As Integer = ConversionBuffer.Lines.Length - 1
                 Dim LineStarts(0 To MaxLines) As Integer
                 Dim LineEnds(0 To MaxLines) As Integer
