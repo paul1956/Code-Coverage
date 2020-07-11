@@ -7,8 +7,8 @@ Imports CodeCoverage.Microsoft.VisualBasic.CompilerServices.NativeMethods
 
 Public Module ControlExtensions
     <Extension()>
-    Public Sub Suspend(_control As Control)
-        LockWindowUpdate(_control.Handle)
+    Public Sub Suspend(Crtl As Control)
+        LockWindowUpdate(Crtl.Handle)
     End Sub
 
     <Extension()>
