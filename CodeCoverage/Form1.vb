@@ -231,7 +231,7 @@ Public Class Form1
             If TypeOf clsMenu Is ToolStripSeparator Then
                 Seperator = CType(clsMenu, ToolStripSeparator)
             End If
-            If Not clsMenu.Tag Is Nothing Then
+            If clsMenu.Tag IsNot Nothing Then
                 If clsMenu.Tag.ToString().StartsWith(MRUTag, StringComparison.InvariantCulture) Then
                     clsItems.Add(clsMenu)
                 End If
@@ -251,9 +251,11 @@ Public Class Form1
             ' contains the full path so it can be opened later...
             If File.Exists(sPath) Then
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
                 Dim clsItem As New ToolStripMenuItem(sPath) With {
                 .Tag = MRUTag & sPath
                 }
+#Enable Warning CA2000 ' Dispose objects before losing scope
                 ' hook into the click event handler so we can open the file later...
                 AddHandler clsItem.Click, AddressOf mnu_MRUList_Click
                 AddHandler clsItem.MouseDown, AddressOf mnu_MRUList_MouseDown

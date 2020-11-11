@@ -44,25 +44,21 @@ Namespace Coverlet.Core
 
     End Class
 
-    <CodeAnalysis.SuppressMessage("Usage", "CA2237:Mark ISerializable types with serializable", Justification:="Breaks application")>
     Public Class MethodsDictionary
         Inherits Dictionary(Of String, Method)
 
     End Class
 
-    <CodeAnalysis.SuppressMessage("Usage", "CA2237:Mark ISerializable types with serializable", Justification:="Breaks application")>
     Public Class ClassesDictionary
         Inherits Dictionary(Of String, MethodsDictionary)
 
     End Class
 
-    <CodeAnalysis.SuppressMessage("Usage", "CA2237:Mark ISerializable types with serializable", Justification:="Breaks application")>
     Public Class DocumentsDictionary
         Inherits Dictionary(Of String, ClassesDictionary)
 
     End Class
 
-    <CodeAnalysis.SuppressMessage("Usage", "CA2237:Mark ISerializable types with serializable", Justification:="Breaks application")>
     Public Class ModulesDictionary
         Inherits Dictionary(Of String, DocumentsDictionary)
 

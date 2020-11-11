@@ -59,7 +59,7 @@ Public Class LineNumbersForRichTextBox : Inherits Control
 
     Private _zLineNumbers_Show As Boolean = True
 
-    Private _zLineNumbers_ShowAsHexadecimal As Boolean = False
+    Private _zLineNumbers_ShowAsHexadecimal As Boolean
 
     Private _zLineNumbers_ShowLeadingZeroes As Boolean = True
 
@@ -73,15 +73,15 @@ Public Class LineNumbersForRichTextBox : Inherits Control
 
     Private _zMarginLines_Thickness As Single = 1
 
-    Private _zParentInMe As Integer = 0
+    Private _zParentInMe As Integer
 
-    Private _zParentIsScrolling As Boolean = False
+    Private _zParentIsScrolling As Boolean
 
     Private _zPointInMe As New Point(0, 0)
 
     Private _zPointInParent As New Point(0, 0)
 
-    Private _zSeeThroughMode As Boolean = False
+    Private _zSeeThroughMode As Boolean
 
     Public Sub New()
         With Me
