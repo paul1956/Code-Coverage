@@ -12,7 +12,7 @@ description: "VB Code Coverage"
 
 ## Requires
 
-- Visual Studio 2019 version 16.4.0 for Core SDK 3.1
+- Visual Studio 2019 version 16.8.0 for Core SDK 5.0
  - Core 3.1
 
 ## License
@@ -39,8 +39,8 @@ Microsoft.Dotnet.XUnitExtensions which provides ConditionalFact and PlatformSpec
 
 ![Code Coverage Demo Image](CodeCoverageDemo.jpg)
 
-New in Release 1.1
-Updated to Core WinForms
+New in Release 2.0
+Updated to Core WinForms 5.0
 
 ## Code Coverage Example Output
 ```

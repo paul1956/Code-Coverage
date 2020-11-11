@@ -12,9 +12,9 @@
         <OptionStrict>On</OptionStrict>
     </PropertyGroup>
     <PropertyGroup>
-        <Version>1.1.0.1</Version>
-        <AssemblyVersion>1.1.0.1</AssemblyVersion>
-        <ProductVersion>1.1.0.1</ProductVersion>
+        <Version>2.0.0.0</Version>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <ProductVersion>2.0.0.0</ProductVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <RepositoryType>GitHub</RepositoryType>
         <RepositoryUrl>https://github.com/paul1956/CodeCoverage</RepositoryUrl>
@@ -78,7 +78,6 @@
             <Version>12.0.3</Version>
         </PackageReference>
         <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-        <PackageReference Include="VBMsgBox" Version="1.0.2" />
     </ItemGroup>
     <ItemGroup>
         <Import Include="System.Data" />
