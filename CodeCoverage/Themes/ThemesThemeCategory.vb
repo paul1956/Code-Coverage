@@ -7,16 +7,15 @@ Imports System.Xml.Serialization
 <Serializable(),
  ComponentModel.DesignerCategory("code"),
  XmlType(AnonymousType:=True)>
-Partial Public Class ThemesTheme
+Partial Public Class ThemesThemeCategory
 
     '''<remarks/>
     '<XmlAttribute()>
     'Private Property GUID As String
 
     '''<remarks/>
-    <XmlElement("Category")>
-    Public Property Category As ThemesThemeCategory()
-
+    <XmlElement("Color")>
+    Public Property Color As ThemesThemeCategoryColor()
 
     '''<remarks/>
     <XmlAttribute()>

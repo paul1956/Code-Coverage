@@ -1,11 +1,13 @@
 ﻿Option Explicit On
 Option Infer Off
 Option Strict On
+
 Imports System.Runtime.CompilerServices
 
 Imports CodeCoverage.Microsoft.VisualBasic.CompilerServices.NativeMethods
 
 Public Module ControlExtensions
+
     <Extension()>
     Friend Sub Suspend(Crtl As Control)
         LockWindowUpdate(Crtl.Handle)

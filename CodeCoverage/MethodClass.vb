@@ -35,4 +35,5 @@ Public Class MethodClass
         End If
         Return MethodNameWithParameters.Substring(0, Math.Min(70, MethodNameWithParameters.Length)) & "..."
     End Function
+
 End Class

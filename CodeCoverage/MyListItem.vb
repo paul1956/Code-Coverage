@@ -1,4 +1,5 @@
 ﻿Public Class MyListItem
+
     Sub New(pText As String, pValue As String)
         _Text = pText
         _Value = pValue

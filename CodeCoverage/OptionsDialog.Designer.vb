@@ -30,12 +30,12 @@ Partial Class OptionsDialog
         Me.ProjectDirectoryList = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
-        Me.ItemColor_ComboBox = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.UpdateItemColor_Button = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.CoverageColor_ComboBox = New System.Windows.Forms.ComboBox()
-        Me.UpdateCoverageColor = New System.Windows.Forms.Button()
+        Me.CodeCoverageComboBox = New System.Windows.Forms.ComboBox()
+        Me.CodeCoverageLabel = New System.Windows.Forms.Label()
+        Me.UpdateCodeCoverageColorButton = New System.Windows.Forms.Button()
+        Me.ThemeColorsLabel = New System.Windows.Forms.Label()
+        Me.ThemeColorsComboBox = New System.Windows.Forms.ComboBox()
+        Me.UpdateThemeColorsButton = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,19 +47,21 @@ Partial Class OptionsDialog
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(310, 280)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(362, 323)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(146, 29)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(170, 33)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'OK_Button
         '
         Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(3, 3)
+        Me.OK_Button.Location = New System.Drawing.Point(4, 3)
+        Me.OK_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(67, 23)
+        Me.OK_Button.Size = New System.Drawing.Size(77, 27)
         Me.OK_Button.TabIndex = 0
         Me.OK_Button.Text = "OK"
         '
@@ -67,26 +69,29 @@ Partial Class OptionsDialog
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(76, 3)
+        Me.Cancel_Button.Location = New System.Drawing.Point(89, 3)
+        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
+        Me.Cancel_Button.Size = New System.Drawing.Size(77, 27)
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "Cancel"
         '
         'ProjectDirectoryList
         '
         Me.ProjectDirectoryList.FormattingEnabled = True
-        Me.ProjectDirectoryList.Location = New System.Drawing.Point(200, 15)
+        Me.ProjectDirectoryList.Location = New System.Drawing.Point(233, 17)
+        Me.ProjectDirectoryList.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.ProjectDirectoryList.Name = "ProjectDirectoryList"
-        Me.ProjectDirectoryList.Size = New System.Drawing.Size(220, 21)
+        Me.ProjectDirectoryList.Size = New System.Drawing.Size(256, 23)
         Me.ProjectDirectoryList.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(27, 19)
+        Me.Label1.Location = New System.Drawing.Point(31, 22)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(155, 13)
+        Me.Label1.Size = New System.Drawing.Size(170, 15)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Directory to Start Folder Search"
         '
@@ -95,87 +100,94 @@ Partial Class OptionsDialog
         Me.ColorDialog1.AnyColor = True
         Me.ColorDialog1.FullOpen = True
         '
-        'ItemColor_ComboBox
+        'CodeCoverageComboBox
         '
-        Me.ItemColor_ComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.ItemColor_ComboBox.DropDownHeight = 400
-        Me.ItemColor_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ItemColor_ComboBox.DropDownWidth = 300
-        Me.ItemColor_ComboBox.FormattingEnabled = True
-        Me.ItemColor_ComboBox.IntegralHeight = False
-        Me.ItemColor_ComboBox.Location = New System.Drawing.Point(30, 119)
-        Me.ItemColor_ComboBox.MaxDropDownItems = 20
-        Me.ItemColor_ComboBox.Name = "ItemColor_ComboBox"
-        Me.ItemColor_ComboBox.Size = New System.Drawing.Size(390, 21)
-        Me.ItemColor_ComboBox.TabIndex = 3
+        Me.CodeCoverageComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.CodeCoverageComboBox.DropDownHeight = 400
+        Me.CodeCoverageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CodeCoverageComboBox.DropDownWidth = 300
+        Me.CodeCoverageComboBox.FormattingEnabled = True
+        Me.CodeCoverageComboBox.IntegralHeight = False
+        Me.CodeCoverageComboBox.Location = New System.Drawing.Point(35, 137)
+        Me.CodeCoverageComboBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.CodeCoverageComboBox.MaxDropDownItems = 20
+        Me.CodeCoverageComboBox.Name = "CodeCoverageComboBox"
+        Me.CodeCoverageComboBox.Size = New System.Drawing.Size(454, 24)
+        Me.CodeCoverageComboBox.TabIndex = 3
         '
-        'Label2
+        'CodeCoverageLabel
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(30, 100)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(91, 13)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Display Item Color"
+        Me.CodeCoverageLabel.AutoSize = True
+        Me.CodeCoverageLabel.Location = New System.Drawing.Point(35, 115)
+        Me.CodeCoverageLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.CodeCoverageLabel.Name = "CodeCoverageLabel"
+        Me.CodeCoverageLabel.Size = New System.Drawing.Size(125, 15)
+        Me.CodeCoverageLabel.TabIndex = 4
+        Me.CodeCoverageLabel.Text = "Code Coverage Colors"
         '
-        'UpdateItemColor_Button
+        'UpdateCodeCoverageColorButton
         '
-        Me.UpdateItemColor_Button.Location = New System.Drawing.Point(267, 84)
-        Me.UpdateItemColor_Button.Name = "UpdateItemColor_Button"
-        Me.UpdateItemColor_Button.Size = New System.Drawing.Size(152, 23)
-        Me.UpdateItemColor_Button.TabIndex = 5
-        Me.UpdateItemColor_Button.Text = "Update Item Color"
-        Me.UpdateItemColor_Button.UseVisualStyleBackColor = True
+        Me.UpdateCodeCoverageColorButton.Location = New System.Drawing.Point(312, 97)
+        Me.UpdateCodeCoverageColorButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.UpdateCodeCoverageColorButton.Name = "UpdateCodeCoverageColorButton"
+        Me.UpdateCodeCoverageColorButton.Size = New System.Drawing.Size(177, 27)
+        Me.UpdateCodeCoverageColorButton.TabIndex = 5
+        Me.UpdateCodeCoverageColorButton.Text = "Update Code Coverage Color"
+        Me.UpdateCodeCoverageColorButton.UseVisualStyleBackColor = True
         '
-        'Label3
+        'ThemeColorsLabel
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(30, 171)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(113, 13)
-        Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Code Coverage Colors"
+        Me.ThemeColorsLabel.AutoSize = True
+        Me.ThemeColorsLabel.Location = New System.Drawing.Point(35, 197)
+        Me.ThemeColorsLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.ThemeColorsLabel.Name = "ThemeColorsLabel"
+        Me.ThemeColorsLabel.Size = New System.Drawing.Size(80, 15)
+        Me.ThemeColorsLabel.TabIndex = 6
+        Me.ThemeColorsLabel.Text = "Theme Colors"
         '
-        'CoverageColor_ComboBox
+        'ThemeColorsComboBox
         '
-        Me.CoverageColor_ComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.CoverageColor_ComboBox.DropDownHeight = 400
-        Me.CoverageColor_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CoverageColor_ComboBox.DropDownWidth = 300
-        Me.CoverageColor_ComboBox.FormattingEnabled = True
-        Me.CoverageColor_ComboBox.IntegralHeight = False
-        Me.CoverageColor_ComboBox.Location = New System.Drawing.Point(30, 194)
-        Me.CoverageColor_ComboBox.MaxDropDownItems = 20
-        Me.CoverageColor_ComboBox.Name = "CoverageColor_ComboBox"
-        Me.CoverageColor_ComboBox.Size = New System.Drawing.Size(390, 21)
-        Me.CoverageColor_ComboBox.TabIndex = 7
+        Me.ThemeColorsComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.ThemeColorsComboBox.DropDownHeight = 400
+        Me.ThemeColorsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ThemeColorsComboBox.DropDownWidth = 300
+        Me.ThemeColorsComboBox.FormattingEnabled = True
+        Me.ThemeColorsComboBox.IntegralHeight = False
+        Me.ThemeColorsComboBox.Location = New System.Drawing.Point(35, 224)
+        Me.ThemeColorsComboBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.ThemeColorsComboBox.MaxDropDownItems = 20
+        Me.ThemeColorsComboBox.Name = "ThemeColorsComboBox"
+        Me.ThemeColorsComboBox.Size = New System.Drawing.Size(454, 24)
+        Me.ThemeColorsComboBox.TabIndex = 7
         '
-        'UpdateCoverageColor
+        'UpdateThemeColorsButton
         '
-        Me.UpdateCoverageColor.Location = New System.Drawing.Point(267, 161)
-        Me.UpdateCoverageColor.Name = "UpdateCoverageColor"
-        Me.UpdateCoverageColor.Size = New System.Drawing.Size(152, 23)
-        Me.UpdateCoverageColor.TabIndex = 8
-        Me.UpdateCoverageColor.Text = "Update Coverage Color"
-        Me.UpdateCoverageColor.UseVisualStyleBackColor = True
+        Me.UpdateThemeColorsButton.Location = New System.Drawing.Point(312, 186)
+        Me.UpdateThemeColorsButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.UpdateThemeColorsButton.Name = "UpdateThemeColorsButton"
+        Me.UpdateThemeColorsButton.Size = New System.Drawing.Size(177, 27)
+        Me.UpdateThemeColorsButton.TabIndex = 8
+        Me.UpdateThemeColorsButton.Text = "Update Theme Colors"
+        Me.UpdateThemeColorsButton.UseVisualStyleBackColor = True
         '
         'OptionsDialog
         '
         Me.AcceptButton = Me.OK_Button
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(468, 321)
-        Me.Controls.Add(Me.UpdateCoverageColor)
-        Me.Controls.Add(Me.CoverageColor_ComboBox)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.UpdateItemColor_Button)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.ItemColor_ComboBox)
+        Me.ClientSize = New System.Drawing.Size(546, 370)
+        Me.Controls.Add(Me.UpdateThemeColorsButton)
+        Me.Controls.Add(Me.ThemeColorsComboBox)
+        Me.Controls.Add(Me.ThemeColorsLabel)
+        Me.Controls.Add(Me.UpdateCodeCoverageColorButton)
+        Me.Controls.Add(Me.CodeCoverageLabel)
+        Me.Controls.Add(Me.CodeCoverageComboBox)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ProjectDirectoryList)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "OptionsDialog"
@@ -193,10 +205,10 @@ Partial Class OptionsDialog
     Friend WithEvents ProjectDirectoryList As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents ColorDialog1 As ColorDialog
-    Friend WithEvents ItemColor_ComboBox As ComboBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents UpdateItemColor_Button As Button
-    Friend WithEvents Label3 As Label
-    Friend WithEvents CoverageColor_ComboBox As ComboBox
-    Friend WithEvents UpdateCoverageColor As Button
+    Friend WithEvents CodeCoverageComboBox As ComboBox
+    Friend WithEvents CodeCoverageLabel As Label
+    Friend WithEvents UpdateCodeCoverageColorButton As Button
+    Friend WithEvents ThemeColorsLabel As Label
+    Friend WithEvents ThemeColorsComboBox As ComboBox
+    Friend WithEvents UpdateThemeColorsButton As Button
 End Class

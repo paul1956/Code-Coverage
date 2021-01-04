@@ -18,4 +18,5 @@ Public Module StringExtensions
         Contracts.Contract.Requires(value IsNot Nothing)
         Return value.Count(Function(c As Char) c = ch)
     End Function
+
 End Module

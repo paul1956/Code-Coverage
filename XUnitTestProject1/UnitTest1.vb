@@ -5,7 +5,7 @@
 Imports System.IO
 
 Imports CodeCoverage
-Imports CodeCoverage.CodeColorSelector
+Imports CodeCoverage.SyntaxHighlightingColors
 
 Imports Xunit
 

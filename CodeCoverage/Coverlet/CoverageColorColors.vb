@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 
-Public Module CoverageColorSelector
+Public Module CoverageColorColors
 
     Private ReadOnly FullPath As String = Path.Combine(FileIO.SpecialDirectories.MyDocuments, "CodeCoverageColorDictionary.csv")
 
@@ -59,13 +59,13 @@ Public Module CoverageColorSelector
     Friend Function GetColorFromName(Name As String) As (Foreground As Color, Background As Color)
         Try
             If String.IsNullOrWhiteSpace(Name) Then
-                Return CodeColorSelector.ColorMappingDictionary("default")
+                Return SyntaxHighlightingColors.ColorMappingDictionary("default")
             End If
-            Return CodeColorSelector.ColorMappingDictionary(Name)
+            Return SyntaxHighlightingColors.ColorMappingDictionary(Name)
         Catch ex As Exception
             Debug.Print($"GetColorFromName missing({Name})")
             Stop
-            Return CodeColorSelector.ColorMappingDictionary("error")
+            Return SyntaxHighlightingColors.ColorMappingDictionary("error")
         End Try
     End Function
 

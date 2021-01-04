@@ -5,7 +5,7 @@ Imports System.IO
 Imports System.Xml
 Imports System.Xml.Serialization
 
-Public NotInheritable Class CodeColorSelector
+Public NotInheritable Class SyntaxHighlightingColors
 
     Public Shared ReadOnly ColorMappingDictionary As New Dictionary(Of String, (ForeGround As Color, Background As Color))(StringComparer.OrdinalIgnoreCase) From {
          {"class name", (Color.FromArgb(0, 128, 128), Color.White)},
@@ -74,7 +74,7 @@ Public NotInheritable Class CodeColorSelector
         Dim FileStream As FileStream = File.OpenWrite(FPath)
         Dim sw As New StreamWriter(FileStream)
         sw.WriteLine($"Key,A,R,G,B,BA,BR,BG,BB")
-        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In CodeColorSelector.ColorMappingDictionary
+        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In SyntaxHighlightingColors.ColorMappingDictionary
             sw.WriteLine($"{kvp.Key},{kvp.Value.ForeGround.A},{kvp.Value.ForeGround.R},{kvp.Value.ForeGround.G},{kvp.Value.ForeGround.B},{kvp.Value.Background.A},{kvp.Value.Background.R},{kvp.Value.Background.G},{kvp.Value.Background.B}")
         Next
         sw.Flush()
@@ -103,7 +103,7 @@ Public NotInheritable Class CodeColorSelector
     End Function
 
     Public Shared Function LoadDictionaryFromTheme(CurrentTheme As Themes) As Dictionary(Of String, (ForeGround As Color, Background As Color))
-        Return LoadDictionaryFromTheme(CurrentTheme, CodeColorSelector.ColorMappingDictionary)
+        Return LoadDictionaryFromTheme(CurrentTheme, SyntaxHighlightingColors.ColorMappingDictionary)
     End Function
 
     Public Shared Function LoadDictionaryFromTheme(CurrentTheme As Themes, ThemeDictionary As Dictionary(Of String, (ForeGround As Color, Background As Color))) As Dictionary(Of String, (ForeGround As Color, Background As Color))
@@ -126,7 +126,7 @@ Public NotInheritable Class CodeColorSelector
             End If
             For Each CategoryColor As ThemesThemeCategoryColor In Cat.Color
                 Dim found As Boolean = False
-                If CodeColorSelector.ColorMappingDictionary.ContainsKey(CategoryColor.Name) Then
+                If SyntaxHighlightingColors.ColorMappingDictionary.ContainsKey(CategoryColor.Name) Then
                     For Each C As ThemesThemeCategoryColor In CategoryColorList
                         If C.Name = CategoryColor.Name Then
                             found = True
@@ -162,7 +162,7 @@ Public NotInheritable Class CodeColorSelector
     End Function
 
     Public Shared Sub SetColor(name As String, value As (ForeGround As Color, Background As Color))
-        CodeColorSelector.ColorMappingDictionary(name) = value
+        SyntaxHighlightingColors.ColorMappingDictionary(name) = value
         WriteColorDictionaryToFile(DictionaryFilePath)
     End Sub
 
@@ -200,7 +200,7 @@ Public NotInheritable Class CodeColorSelector
             Else
                 BackGroundColor = Color.White
             End If
-            CodeColorSelector.ColorMappingDictionary(key) = (Color.FromArgb(ForeGroundA, ForeGroundR, ForeGroundG, ForeGroundB), BackGroundColor)
+            SyntaxHighlightingColors.ColorMappingDictionary(key) = (Color.FromArgb(ForeGroundA, ForeGroundR, ForeGroundG, ForeGroundB), BackGroundColor)
         End While
         sr.Close()
         FileStream.Close()
@@ -210,7 +210,7 @@ Public NotInheritable Class CodeColorSelector
         Dim FileStream As FileStream = File.OpenWrite(DictionaryFilePath)
         Dim sw As New StreamWriter(FileStream)
         sw.WriteLine($"Key,A,R,G,B,BA,BR,BG,BB")
-        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In CodeColorSelector.ColorMappingDictionary
+        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In SyntaxHighlightingColors.ColorMappingDictionary
             sw.WriteLine($"{kvp.Key},{kvp.Value.ForeGround.A},{kvp.Value.ForeGround.R},{kvp.Value.ForeGround.G},{kvp.Value.ForeGround.B},{kvp.Value.Background.A},{kvp.Value.Background.R},{kvp.Value.Background.G},{kvp.Value.Background.B}")
         Next
         sw.Flush()

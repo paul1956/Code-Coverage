@@ -3,6 +3,7 @@
 ' See the LICENSE file in the project root for more information.
 
 Public Class DirectoryClass
+
     Sub New(mShortName As String, mFullname As String, mDirectoryNode As TreeNode)
         _ShortName = mShortName
         _FullPath = mFullname

@@ -9,8 +9,6 @@ Imports CodeCoverage.Coverlet.Core
 
 Imports Microsoft.CodeAnalysis
 
-Imports VBMsgBox
-
 Public Module ColorRTB
 
     Private Sub BuildLineTables(ConversionBuffer As RichTextBox, ByRef LineStarts() As Integer, ByRef LineEnds() As Integer)
@@ -162,14 +160,8 @@ Public Module ColorRTB
         Try ' Prevent crash when exiting
             With ConversionBuffer
                 .Clear()
-                .Select(.TextLength, 0)
-                Dim TextToCompile As String = Nothing
-                Using FileStream As FileStream = File.OpenRead(FileName)
-                    TextToCompile = GetFileTextFromStream(FileStream)
-                    Application.DoEvents()
-                    Colorize(CallingForm, TextToCompile, ConversionBuffer, FileName, ProgressBar)
-                End Using
-
+                Call .Select(.TextLength, 0)
+                Colorize(CallingForm, File.ReadAllText(FileName), ConversionBuffer, FileName, ProgressBar)
             End With
         Catch ex As Exception
             Stop

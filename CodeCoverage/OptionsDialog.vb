@@ -11,11 +11,11 @@ Public Class OptionsDialog
         Close()
     End Sub
 
-    Private Sub CoverageColor_ComboBox_DrawItem(sender As Object, e As DrawItemEventArgs) Handles CoverageColor_ComboBox.DrawItem
+    Private Sub ThemeColorsComboBoxComboBox_DrawItem(sender As Object, e As DrawItemEventArgs) Handles ThemeColorsComboBox.DrawItem
         If e.Index >= 0 Then
             Dim n As String = CType(sender, ComboBox).Items(e.Index).ToString()
-            Using f As New Font("Arial", 9, FontStyle.Regular)
-                Dim c As Color = CoverageColorSelector.GetColorFromName(n).Foreground
+            Using f As New Font("Consolas", 9, FontStyle.Regular)
+                Dim c As Color = CoverageColorColors.GetColorFromName(n).Foreground
                 Using b As Brush = New SolidBrush(c)
                     Dim rect As Rectangle = e.Bounds
                     Dim g As Graphics = e.Graphics
@@ -26,16 +26,16 @@ Public Class OptionsDialog
         End If
     End Sub
 
-    Private Sub CoverageColor_ComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CoverageColor_ComboBox.SelectedIndexChanged
-        _selectedColorName = CStr(CoverageColor_ComboBox.SelectedItem)
-        _selectedColor = CoverageColorSelector.GetColorFromName(_selectedColorName)
+    Private Sub ThemeColorsComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ThemeColorsComboBox.SelectedIndexChanged
+        _selectedColorName = CStr(ThemeColorsComboBox.SelectedItem)
+        _selectedColor = CoverageColorColors.GetColorFromName(_selectedColorName)
     End Sub
 
-    Private Sub ItemColor_ComboBox_DrawItem(sender As Object, e As DrawItemEventArgs) Handles ItemColor_ComboBox.DrawItem
+    Private Sub CodeCoverageComboBox_DrawItem(sender As Object, e As DrawItemEventArgs) Handles CodeCoverageComboBox.DrawItem
         If e.Index >= 0 Then
             Dim n As String = CType(sender, ComboBox).Items(e.Index).ToString()
             Using f As New Font("Segoe UI", 9, FontStyle.Regular)
-                Dim c As (ForeGround As Color, Background As Color) = CodeColorSelector.GetColorFromName(CoverageColors.ColorMappingDictionary, n)
+                Dim c As (ForeGround As Color, Background As Color) = SyntaxHighlightingColors.GetColorFromName(CoverageColors.ColorMappingDictionary, n)
                 Using b As Brush = New SolidBrush(c.ForeGround)
                     Dim rect As Rectangle = e.Bounds
                     Dim g As Graphics = e.Graphics
@@ -46,17 +46,17 @@ Public Class OptionsDialog
         End If
     End Sub
 
-    Private Sub ItemColor_ComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ItemColor_ComboBox.SelectedIndexChanged
-        _selectedColorName = CStr(ItemColor_ComboBox.SelectedItem)
-        _selectedColor = CodeColorSelector.GetColorFromName(CoverageColors.ColorMappingDictionary, _selectedColorName)
+    Private Sub CodeCoverageComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CodeCoverageComboBox.SelectedIndexChanged
+        _selectedColorName = CStr(CodeCoverageComboBox.SelectedItem)
+        _selectedColor = SyntaxHighlightingColors.GetColorFromName(CoverageColors.ColorMappingDictionary, _selectedColorName)
     End Sub
 
     Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
         My.Settings.DefaultProjectDirectory = CType(ProjectDirectoryList.SelectedItem, MyListItem).Value
         My.Settings.Save()
         DialogResult = DialogResult.OK
-        CodeColorSelector.WriteColorDictionaryToFile()
-        CoverageColorSelector.WriteColorDictionaryToFile()
+        SyntaxHighlightingColors.WriteColorDictionaryToFile()
+        CoverageColorColors.WriteColorDictionaryToFile()
         Close()
     End Sub
 
@@ -70,30 +70,30 @@ Public Class OptionsDialog
                 Exit For
             End If
         Next
-        For Each Name As String In CodeColorSelector.GetColorNameList()
-            ItemColor_ComboBox.Items.Add(Name)
+        For Each Name As String In SyntaxHighlightingColors.GetColorNameList()
+            CodeCoverageComboBox.Items.Add(Name)
         Next Name
-        ItemColor_ComboBox.SelectedIndex = ItemColor_ComboBox.FindStringExact("default")
+        CodeCoverageComboBox.SelectedIndex = CodeCoverageComboBox.FindStringExact("default")
 
-        For Each Name As String In CoverageColorSelector.GetColorNameList()
-            CoverageColor_ComboBox.Items.Add(Name)
+        For Each Name As String In CoverageColorColors.GetColorNameList()
+            ThemeColorsComboBox.Items.Add(Name)
         Next Name
-        CoverageColor_ComboBox.SelectedIndex = CoverageColor_ComboBox.FindStringExact("default")
+        ThemeColorsComboBox.SelectedIndex = ThemeColorsComboBox.FindStringExact("default")
     End Sub
 
-    Private Sub UpdateCoverageColor_Click(sender As Object, e As EventArgs) Handles UpdateCoverageColor.Click
+    Private Sub UpdateThemeColorsButton_Click(sender As Object, e As EventArgs) Handles UpdateThemeColorsButton.Click
         ColorDialog1.Color = _selectedColor.ForeGround
         If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
-            CoverageColorSelector.SetColor(CoverageColor_ComboBox.Items(CoverageColor_ComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
+            CoverageColorColors.SetColor(ThemeColorsComboBox.Items(ThemeColorsComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
             Application.DoEvents()
         End If
 
     End Sub
 
-    Private Sub UpdateItemColor_Button_Click(sender As Object, e As EventArgs) Handles UpdateItemColor_Button.Click
+    Private Sub UpdateICodeCoverageColorButton_Button_Click(sender As Object, e As EventArgs) Handles UpdateCodeCoverageColorButton.Click
         ColorDialog1.Color = _selectedColor.ForeGround
         If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
-            CodeColorSelector.SetColor(ItemColor_ComboBox.Items(ItemColor_ComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
+            SyntaxHighlightingColors.SetColor(CodeCoverageComboBox.Items(CodeCoverageComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
             Application.DoEvents()
         End If
     End Sub

@@ -49,8 +49,8 @@ Public Class Form1
             My.Settings.Save()
         End If
 
-        CoverageColorSelector.UpdateColorDictionaryFromFile()
-        CodeColorSelector.UpdateDictionaryFromFile()
+        CoverageColorColors.UpdateColorDictionaryFromFile()
+        SyntaxHighlightingColors.UpdateDictionaryFromFile()
 
         Dim ExecutablePath As String = Reflection.Assembly.GetExecutingAssembly().Location
         Dim ExecutableDirectory As String = Directory.GetParent(ExecutablePath).FullName

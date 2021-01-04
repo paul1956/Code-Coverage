@@ -4,33 +4,56 @@
 
 Namespace Coverlet.Core
 
+    Public Class BranchesCollection
+        Inherits List(Of BranchInfo)
+
+        Sub New()
+
+        End Sub
+
+    End Class
+
     Public Class BranchInfo
 
+        Public Property EndOffset As Integer
+        Public Property Hits As Integer
         Public Property Line As Integer
 
         Public Property Offset As Integer
-
-        Public Property EndOffset As Integer
-
-        Public Property Path As Integer
-
         Public Property Ordinal As UInteger
+        Public Property Path As Integer
+    End Class
 
-        Public Property Hits As Integer
+    Public Class ClassesDictionary
+        Inherits Dictionary(Of String, MethodsDictionary)
+
+        Sub New()
+
+        End Sub
+
+    End Class
+
+    Public Class DocumentsDictionary
+        Inherits Dictionary(Of String, ClassesDictionary)
+
+        Sub New()
+
+        End Sub
 
     End Class
 
     Public Class LinesDictionary
         Inherits SortedDictionary(Of Integer, Integer)
-    End Class
 
-    Public Class BranchesCollection
-        Inherits List(Of BranchInfo)
+        Sub New()
+
+        End Sub
+
     End Class
 
     Public Class Method
 
-        Friend Sub New()
+        Public Sub New()
 
             Lines = New LinesDictionary
 
@@ -38,29 +61,25 @@ Namespace Coverlet.Core
 
         End Sub
 
-        Public ReadOnly Property Lines As LinesDictionary
-
         Public ReadOnly Property Branches As BranchesCollection
-
+        Public ReadOnly Property Lines As LinesDictionary
     End Class
 
     Public Class MethodsDictionary
         Inherits Dictionary(Of String, Method)
 
-    End Class
+        Sub New()
 
-    Public Class ClassesDictionary
-        Inherits Dictionary(Of String, MethodsDictionary)
-
-    End Class
-
-    Public Class DocumentsDictionary
-        Inherits Dictionary(Of String, ClassesDictionary)
+        End Sub
 
     End Class
 
     Public Class ModulesDictionary
         Inherits Dictionary(Of String, DocumentsDictionary)
+
+        Sub New()
+
+        End Sub
 
     End Class
 

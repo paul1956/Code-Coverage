@@ -15,12 +15,12 @@ Namespace Coverlet.Core
 
         Friend Sub New(JSONFileWithPath As String, TreeView1 As TreeView, ByRef DocumentList As List(Of DirectoryClass), MethodsList As List(Of MethodClass))
             Dim jsonString As String
-            Using FileStream As FileStream = File.OpenRead(JSONFileWithPath)
-                jsonString = GetFileTextFromStream(FileStream)
-            End Using
+            jsonString = File.ReadAllText(JSONFileWithPath)
             DocumentCoverageModifiedDate = File.GetLastWriteTime(JSONFileWithPath)
             DocumentCoverageSummary = New CoverageSummary
-            _CodeCoverageRoot = Newtonsoft.Json.JsonConvert.DeserializeObject(Of ModulesDictionary)(jsonString)
+
+            _CodeCoverageRoot = Text.Json.JsonSerializer.Deserialize(Of ModulesDictionary)(jsonString)
+
             Dim FileInfo As FileInfo = New FileInfo(JSONFileWithPath)
             Dim parentNode As TreeNode = TreeView1.Nodes.Add($"Code Coverage, file {FileInfo.Directory.Name}{Path.PathSeparator}{FileInfo.Name}, Last Updated {FileInfo.LastWriteTime.Date.ToShortDateString} {FileInfo.LastWriteTime.TimeOfDay.Hours}:{FileInfo.LastWriteTime.ToShortTimeString}")
             TreeView1.Nodes(0).Tag = CodeCoverageTag
@@ -197,6 +197,7 @@ Namespace Coverlet.Core
             ColorParentNodes(parentNode, BackColor)
             Return Hit
         End Function
+
         Public Shared Function GetModule(FileNameWithPath As String) As ClassesDictionary
             If CodeCoverageRoot IsNot Nothing AndAlso CodeCoverageRoot.Count > 0 Then
                 For Each ngObject As KeyValuePair(Of String, DocumentsDictionary) In CodeCoverageRoot

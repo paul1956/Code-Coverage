@@ -72,4 +72,5 @@
             ColorMappingDictionary("Method Missed") = (value, ColorMappingDictionary("Default").Background)
         End Set
     End Property
+
 End Class

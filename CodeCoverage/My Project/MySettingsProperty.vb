@@ -1,5 +1,4 @@
-﻿
-Imports CodeCoverage.CodeCoverage.My_Project
+﻿Imports CodeCoverage.CodeCoverage.My_Project
 
 Namespace My
 
