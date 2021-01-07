@@ -33,9 +33,9 @@ Partial Class OptionsDialog
         Me.CodeCoverageComboBox = New System.Windows.Forms.ComboBox()
         Me.CodeCoverageLabel = New System.Windows.Forms.Label()
         Me.UpdateCodeCoverageColorButton = New System.Windows.Forms.Button()
-        Me.ThemeColorsLabel = New System.Windows.Forms.Label()
-        Me.ThemeColorsComboBox = New System.Windows.Forms.ComboBox()
-        Me.UpdateThemeColorsButton = New System.Windows.Forms.Button()
+        Me.SyntaxHighlighingColorsLabel = New System.Windows.Forms.Label()
+        Me.SyntaxHighlighingColorsComboBox = New System.Windows.Forms.ComboBox()
+        Me.UpdateSyntaxHighlighingColorsButton = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -135,40 +135,40 @@ Partial Class OptionsDialog
         Me.UpdateCodeCoverageColorButton.Text = "Update Code Coverage Color"
         Me.UpdateCodeCoverageColorButton.UseVisualStyleBackColor = True
         '
-        'ThemeColorsLabel
+        'SyntaxHighlighingColorsLabel
         '
-        Me.ThemeColorsLabel.AutoSize = True
-        Me.ThemeColorsLabel.Location = New System.Drawing.Point(35, 197)
-        Me.ThemeColorsLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.ThemeColorsLabel.Name = "ThemeColorsLabel"
-        Me.ThemeColorsLabel.Size = New System.Drawing.Size(80, 15)
-        Me.ThemeColorsLabel.TabIndex = 6
-        Me.ThemeColorsLabel.Text = "Theme Colors"
+        Me.SyntaxHighlighingColorsLabel.AutoSize = True
+        Me.SyntaxHighlighingColorsLabel.Location = New System.Drawing.Point(35, 197)
+        Me.SyntaxHighlighingColorsLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.SyntaxHighlighingColorsLabel.Name = "SyntaxHighlighingColorsLabel"
+        Me.SyntaxHighlighingColorsLabel.Size = New System.Drawing.Size(145, 15)
+        Me.SyntaxHighlighingColorsLabel.TabIndex = 6
+        Me.SyntaxHighlighingColorsLabel.Text = "Syntax Highlighing Colors"
         '
-        'ThemeColorsComboBox
+        'SyntaxHighlighingColorsComboBox
         '
-        Me.ThemeColorsComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.ThemeColorsComboBox.DropDownHeight = 400
-        Me.ThemeColorsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ThemeColorsComboBox.DropDownWidth = 300
-        Me.ThemeColorsComboBox.FormattingEnabled = True
-        Me.ThemeColorsComboBox.IntegralHeight = False
-        Me.ThemeColorsComboBox.Location = New System.Drawing.Point(35, 224)
-        Me.ThemeColorsComboBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.ThemeColorsComboBox.MaxDropDownItems = 20
-        Me.ThemeColorsComboBox.Name = "ThemeColorsComboBox"
-        Me.ThemeColorsComboBox.Size = New System.Drawing.Size(454, 24)
-        Me.ThemeColorsComboBox.TabIndex = 7
+        Me.SyntaxHighlighingColorsComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.SyntaxHighlighingColorsComboBox.DropDownHeight = 400
+        Me.SyntaxHighlighingColorsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.SyntaxHighlighingColorsComboBox.DropDownWidth = 300
+        Me.SyntaxHighlighingColorsComboBox.FormattingEnabled = True
+        Me.SyntaxHighlighingColorsComboBox.IntegralHeight = False
+        Me.SyntaxHighlighingColorsComboBox.Location = New System.Drawing.Point(35, 224)
+        Me.SyntaxHighlighingColorsComboBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.SyntaxHighlighingColorsComboBox.MaxDropDownItems = 20
+        Me.SyntaxHighlighingColorsComboBox.Name = "SyntaxHighlighingColorsComboBox"
+        Me.SyntaxHighlighingColorsComboBox.Size = New System.Drawing.Size(454, 24)
+        Me.SyntaxHighlighingColorsComboBox.TabIndex = 7
         '
-        'UpdateThemeColorsButton
+        'UpdateSyntaxHighlighingColorsButton
         '
-        Me.UpdateThemeColorsButton.Location = New System.Drawing.Point(312, 186)
-        Me.UpdateThemeColorsButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.UpdateThemeColorsButton.Name = "UpdateThemeColorsButton"
-        Me.UpdateThemeColorsButton.Size = New System.Drawing.Size(177, 27)
-        Me.UpdateThemeColorsButton.TabIndex = 8
-        Me.UpdateThemeColorsButton.Text = "Update Theme Colors"
-        Me.UpdateThemeColorsButton.UseVisualStyleBackColor = True
+        Me.UpdateSyntaxHighlighingColorsButton.Location = New System.Drawing.Point(312, 186)
+        Me.UpdateSyntaxHighlighingColorsButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.UpdateSyntaxHighlighingColorsButton.Name = "UpdateSyntaxHighlighingColorsButton"
+        Me.UpdateSyntaxHighlighingColorsButton.Size = New System.Drawing.Size(177, 27)
+        Me.UpdateSyntaxHighlighingColorsButton.TabIndex = 8
+        Me.UpdateSyntaxHighlighingColorsButton.Text = "Update Syntax Highlighing Colors"
+        Me.UpdateSyntaxHighlighingColorsButton.UseVisualStyleBackColor = True
         '
         'OptionsDialog
         '
@@ -177,9 +177,9 @@ Partial Class OptionsDialog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(546, 370)
-        Me.Controls.Add(Me.UpdateThemeColorsButton)
-        Me.Controls.Add(Me.ThemeColorsComboBox)
-        Me.Controls.Add(Me.ThemeColorsLabel)
+        Me.Controls.Add(Me.UpdateSyntaxHighlighingColorsButton)
+        Me.Controls.Add(Me.SyntaxHighlighingColorsComboBox)
+        Me.Controls.Add(Me.SyntaxHighlighingColorsLabel)
         Me.Controls.Add(Me.UpdateCodeCoverageColorButton)
         Me.Controls.Add(Me.CodeCoverageLabel)
         Me.Controls.Add(Me.CodeCoverageComboBox)
@@ -208,7 +208,7 @@ Partial Class OptionsDialog
     Friend WithEvents CodeCoverageComboBox As ComboBox
     Friend WithEvents CodeCoverageLabel As Label
     Friend WithEvents UpdateCodeCoverageColorButton As Button
-    Friend WithEvents ThemeColorsLabel As Label
-    Friend WithEvents ThemeColorsComboBox As ComboBox
-    Friend WithEvents UpdateThemeColorsButton As Button
+    Friend WithEvents SyntaxHighlighingColorsLabel As Label
+    Friend WithEvents SyntaxHighlighingColorsComboBox As ComboBox
+    Friend WithEvents UpdateSyntaxHighlighingColorsButton As Button
 End Class

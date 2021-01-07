@@ -17,7 +17,6 @@ Partial Public Class ThemesTheme
     <XmlElement("Category")>
     Public Property Category As ThemesThemeCategory()
 
-
     '''<remarks/>
     <XmlAttribute()>
     Public Property Name As String

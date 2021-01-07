@@ -74,7 +74,7 @@ Public NotInheritable Class SyntaxHighlightingColors
         Dim FileStream As FileStream = File.OpenWrite(FPath)
         Dim sw As New StreamWriter(FileStream)
         sw.WriteLine($"Key,A,R,G,B,BA,BR,BG,BB")
-        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In SyntaxHighlightingColors.ColorMappingDictionary
+        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In ColorMappingDictionary
             sw.WriteLine($"{kvp.Key},{kvp.Value.ForeGround.A},{kvp.Value.ForeGround.R},{kvp.Value.ForeGround.G},{kvp.Value.ForeGround.B},{kvp.Value.Background.A},{kvp.Value.Background.R},{kvp.Value.Background.G},{kvp.Value.Background.B}")
         Next
         sw.Flush()
@@ -82,28 +82,25 @@ Public NotInheritable Class SyntaxHighlightingColors
         FileStream.Close()
     End Sub
 
-    Public Shared Function GetColorFromName(Dic As Dictionary(Of String, (ForeGround As Color, Background As Color)), Name As String) As (ForegroundColor As Color, BackGroundColor As Color)
-        If Dic Is Nothing Then
-            Throw New ArgumentNullException(NameOf(Dic))
-        End If
+    Public Shared Function GetColorFromName(Name As String) As (ForegroundColor As Color, BackGroundColor As Color)
         Try
             If String.IsNullOrWhiteSpace(Name) Then
-                Return Dic("default")
+                Return ColorMappingDictionary("default")
             End If
-            Return Dic(Name)
+            Return ColorMappingDictionary(Name)
         Catch ex As Exception
             Debug.Print($"GetColorFromName missing({Name})")
             Stop
-            Return Dic("error")
+            Return ColorMappingDictionary("error")
         End Try
     End Function
 
     Public Shared Function GetColorNameList() As Dictionary(Of String, (Foreground As Color, Background As Color)).KeyCollection
-        Return CoverageColors.ColorMappingDictionary.Keys
+        Return ColorMappingDictionary.Keys
     End Function
 
     Public Shared Function LoadDictionaryFromTheme(CurrentTheme As Themes) As Dictionary(Of String, (ForeGround As Color, Background As Color))
-        Return LoadDictionaryFromTheme(CurrentTheme, SyntaxHighlightingColors.ColorMappingDictionary)
+        Return LoadDictionaryFromTheme(CurrentTheme, ColorMappingDictionary)
     End Function
 
     Public Shared Function LoadDictionaryFromTheme(CurrentTheme As Themes, ThemeDictionary As Dictionary(Of String, (ForeGround As Color, Background As Color))) As Dictionary(Of String, (ForeGround As Color, Background As Color))
@@ -126,7 +123,7 @@ Public NotInheritable Class SyntaxHighlightingColors
             End If
             For Each CategoryColor As ThemesThemeCategoryColor In Cat.Color
                 Dim found As Boolean = False
-                If SyntaxHighlightingColors.ColorMappingDictionary.ContainsKey(CategoryColor.Name) Then
+                If ColorMappingDictionary.ContainsKey(CategoryColor.Name) Then
                     For Each C As ThemesThemeCategoryColor In CategoryColorList
                         If C.Name = CategoryColor.Name Then
                             found = True
@@ -162,7 +159,7 @@ Public NotInheritable Class SyntaxHighlightingColors
     End Function
 
     Public Shared Sub SetColor(name As String, value As (ForeGround As Color, Background As Color))
-        SyntaxHighlightingColors.ColorMappingDictionary(name) = value
+        ColorMappingDictionary(name) = value
         WriteColorDictionaryToFile(DictionaryFilePath)
     End Sub
 
@@ -200,7 +197,7 @@ Public NotInheritable Class SyntaxHighlightingColors
             Else
                 BackGroundColor = Color.White
             End If
-            SyntaxHighlightingColors.ColorMappingDictionary(key) = (Color.FromArgb(ForeGroundA, ForeGroundR, ForeGroundG, ForeGroundB), BackGroundColor)
+            ColorMappingDictionary(key) = (Color.FromArgb(ForeGroundA, ForeGroundR, ForeGroundG, ForeGroundB), BackGroundColor)
         End While
         sr.Close()
         FileStream.Close()
@@ -210,7 +207,7 @@ Public NotInheritable Class SyntaxHighlightingColors
         Dim FileStream As FileStream = File.OpenWrite(DictionaryFilePath)
         Dim sw As New StreamWriter(FileStream)
         sw.WriteLine($"Key,A,R,G,B,BA,BR,BG,BB")
-        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In SyntaxHighlightingColors.ColorMappingDictionary
+        For Each kvp As KeyValuePair(Of String, (ForeGround As Color, Background As Color)) In ColorMappingDictionary
             sw.WriteLine($"{kvp.Key},{kvp.Value.ForeGround.A},{kvp.Value.ForeGround.R},{kvp.Value.ForeGround.G},{kvp.Value.ForeGround.B},{kvp.Value.Background.A},{kvp.Value.Background.R},{kvp.Value.Background.G},{kvp.Value.Background.B}")
         Next
         sw.Flush()

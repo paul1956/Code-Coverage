@@ -15,11 +15,11 @@ Namespace XUnitTestProject1
 
         <Fact>
         Sub TestSub()
-            Assert.Equal(GetColorFromName(ColorMappingDictionary, "Default").ForegroundColor, Color.Black)
-            Assert.Equal(GetColorFromName(ColorMappingDictionary, "default").ForegroundColor, Color.Black)
-            Assert.Equal(GetColorFromName(ColorMappingDictionary, "").ForegroundColor, Color.Black)
-            Assert.Equal(GetColorFromName(ColorMappingDictionary, "anything").ForegroundColor, Color.Red)
-            Assert.Equal(GetColorFromName(ColorMappingDictionary, "event name").ForegroundColor, Color.Black)
+            Assert.Equal(GetColorFromName("Default").ForegroundColor, Color.Black)
+            Assert.Equal(GetColorFromName("default").ForegroundColor, Color.Black)
+            Assert.Equal(GetColorFromName("").ForegroundColor, Color.Black)
+            Assert.Equal(GetColorFromName("anything").ForegroundColor, Color.Red)
+            Assert.Equal(GetColorFromName("event name").ForegroundColor, Color.Black)
         End Sub
 
         <Fact>

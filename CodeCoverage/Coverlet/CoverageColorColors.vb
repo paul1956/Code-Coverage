@@ -59,13 +59,13 @@ Public Module CoverageColorColors
     Friend Function GetColorFromName(Name As String) As (Foreground As Color, Background As Color)
         Try
             If String.IsNullOrWhiteSpace(Name) Then
-                Return SyntaxHighlightingColors.ColorMappingDictionary("default")
+                Return CoverageColors.ColorMappingDictionary("default")
             End If
-            Return SyntaxHighlightingColors.ColorMappingDictionary(Name)
+            Return CoverageColors.ColorMappingDictionary(Name)
         Catch ex As Exception
             Debug.Print($"GetColorFromName missing({Name})")
             Stop
-            Return SyntaxHighlightingColors.ColorMappingDictionary("error")
+            Return CoverageColors.ColorMappingDictionary("error")
         End Try
     End Function
 
