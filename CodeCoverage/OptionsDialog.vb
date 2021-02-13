@@ -3,40 +3,17 @@
 ' See the LICENSE file in the project root for more information.
 
 Public Class OptionsDialog
-    Private _selectedColor As (ForeGround As Color, Background As Color)
-    Private _selectedColorName As String = "default"
+    Private _selectedColor As ColorDescriptor
 
     Private Sub Cancel_Button_Click(sender As Object, e As EventArgs) Handles Cancel_Button.Click
         DialogResult = DialogResult.Cancel
         Close()
     End Sub
 
-    Private Sub CodeCoverageComboBox_DrawItem(sender As Object, e As DrawItemEventArgs) Handles CodeCoverageComboBox.DrawItem
-        If e.Index >= 0 Then
-            Dim n As String = CType(sender, ComboBox).Items(e.Index).ToString()
-            Using f As New Font("Segoe UI", 9, FontStyle.Regular)
-                Dim c As (ForeGround As Color, Background As Color) = CoverageColorColors.GetColorFromName(n)
-                Using b As Brush = New SolidBrush(c.ForeGround)
-                    Dim rect As Rectangle = e.Bounds
-                    Dim g As Graphics = e.Graphics
-                    g.DrawString(n, f, Brushes.Black, rect.X, rect.Top)
-                    g.FillRectangle(b, rect.X + 220, rect.Y + 2, rect.Width - 10, rect.Height - 6)
-                End Using
-            End Using
-        End If
-    End Sub
-
-    Private Sub CodeCoverageComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CodeCoverageComboBox.SelectedIndexChanged
-        _selectedColorName = CStr(CodeCoverageComboBox.SelectedItem)
-        _selectedColor = SyntaxHighlightingColors.GetColorFromName(_selectedColorName)
-    End Sub
-
     Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
         My.Settings.DefaultProjectDirectory = CType(ProjectDirectoryList.SelectedItem, MyListItem).Value
         My.Settings.Save()
         DialogResult = DialogResult.OK
-        SyntaxHighlightingColors.WriteColorDictionaryToFile()
-        CoverageColorColors.WriteColorDictionaryToFile()
         Close()
     End Sub
 
@@ -50,27 +27,13 @@ Public Class OptionsDialog
                 Exit For
             End If
         Next
-        For Each Name As String In CoverageColorColors.GetColorNameList()
-            CodeCoverageComboBox.Items.Add(Name)
-        Next Name
-        CodeCoverageComboBox.SelectedIndex = CodeCoverageComboBox.FindStringExact("default")
-
-        For Each Name As String In SyntaxHighlightingColors.GetColorNameList()
-            SyntaxHighlighingColorsComboBox.Items.Add(Name)
-        Next Name
-        SyntaxHighlighingColorsComboBox.SelectedIndex = SyntaxHighlighingColorsComboBox.FindStringExact("default")
     End Sub
 
-    Private Sub SyntaxHighlighingColors_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SyntaxHighlighingColorsComboBox.SelectedIndexChanged
-        _selectedColorName = CStr(SyntaxHighlighingColorsComboBox.SelectedItem)
-        _selectedColor = SyntaxHighlightingColors.GetColorFromName(_selectedColorName)
-    End Sub
-
-    Private Sub SyntaxHighlighingColorsComboBox_DrawItem(sender As Object, e As DrawItemEventArgs) Handles SyntaxHighlighingColorsComboBox.DrawItem
+    Private Sub SyntaxHighlighingColorsComboBox_DrawItem(sender As Object, e As DrawItemEventArgs)
         If e.Index >= 0 Then
             Dim n As String = CType(sender, ComboBox).Items(e.Index).ToString()
             Using f As New Font("Consolas", 9, FontStyle.Regular)
-                Dim c As Color = SyntaxHighlightingColors.GetColorFromName(n).ForegroundColor
+                Dim c As Color = SyntaxHighlightingColors.GetColorFromName(n).Foreground
                 Using b As Brush = New SolidBrush(c)
                     Dim rect As Rectangle = e.Bounds
                     Dim g As Graphics = e.Graphics
@@ -80,22 +43,4 @@ Public Class OptionsDialog
             End Using
         End If
     End Sub
-
-    Private Sub UpdateCodeCoverageColorButton_Button_Click(sender As Object, e As EventArgs) Handles UpdateCodeCoverageColorButton.Click
-        ColorDialog1.Color = _selectedColor.ForeGround
-        If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
-            CoverageColorColors.SetColor(CodeCoverageComboBox.Items(CodeCoverageComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
-            Application.DoEvents()
-        End If
-    End Sub
-
-    Private Sub UpdateSyntaxHighlighingColorsButton_Click(sender As Object, e As EventArgs) Handles UpdateSyntaxHighlighingColorsButton.Click
-        ColorDialog1.Color = _selectedColor.ForeGround
-        If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
-            SyntaxHighlightingColors.SetColor(SyntaxHighlighingColorsComboBox.Items(SyntaxHighlighingColorsComboBox.SelectedIndex).ToString, (ColorDialog1.Color, _selectedColor.Background))
-            Application.DoEvents()
-        End If
-
-    End Sub
-
 End Class

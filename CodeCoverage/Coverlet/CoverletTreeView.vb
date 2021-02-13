@@ -1,4 +1,8 @@
-﻿Imports System.IO
+﻿' Licensed to the .NET Foundation under one or more agreements.
+' The .NET Foundation licenses this file to you under the MIT license.
+' See the LICENSE file in the project root for more information.
+
+Imports System.IO
 
 Namespace Coverlet.Core
 
@@ -19,7 +23,7 @@ Namespace Coverlet.Core
             DocumentCoverageModifiedDate = File.GetLastWriteTime(JSONFileWithPath)
             DocumentCoverageSummary = New CoverageSummary
 
-            _CodeCoverageRoot = Text.Json.JsonSerializer.Deserialize(Of ModulesDictionary)(jsonString)
+            _CodeCoverageRoot = Newtonsoft.Json.JsonConvert.DeserializeObject(Of ModulesDictionary)(jsonString)
 
             Dim FileInfo As FileInfo = New FileInfo(JSONFileWithPath)
             Dim parentNode As TreeNode = TreeView1.Nodes.Add($"Code Coverage, file {FileInfo.Directory.Name}{Path.PathSeparator}{FileInfo.Name}, Last Updated {FileInfo.LastWriteTime.Date.ToShortDateString} {FileInfo.LastWriteTime.TimeOfDay.Hours}:{FileInfo.LastWriteTime.ToShortTimeString}")
@@ -84,7 +88,6 @@ Namespace Coverlet.Core
                         childNode.BackColor = Color.White
                         childNode.ForeColor = Color.Red
                         childNode.ToolTipText = String.Empty
-                        'childNode = childNode.Parent
                         Continue For
                     End If
                     If File.GetLastWriteTime(PathToDocument) > DocumentCoverageModifiedDate Then
@@ -133,6 +136,10 @@ Namespace Coverlet.Core
                 Next
             End If
             parentNode.ToolTipText = MethodsCoverageSummary.ToString
+            If MethodsCoverageSummary.MethodsHitPercent <= 75 Then
+                parentNode.BackColor = Color.Orange
+                parentNode.Parent.BackColor = Color.Orange
+            End If
         End Sub
 
         Private Shared Sub populate5MethodTreeView(childObjects As Method, parentNode As TreeNode, ByRef MethodCoverageSummary As CoverageSummary)

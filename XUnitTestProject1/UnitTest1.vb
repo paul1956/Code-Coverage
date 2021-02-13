@@ -2,9 +2,6 @@
 ' The .NET Foundation licenses this file to you under the MIT license.
 ' See the LICENSE file in the project root for more information.
 
-Imports System.IO
-
-Imports CodeCoverage
 Imports CodeCoverage.SyntaxHighlightingColors
 
 Imports Xunit
@@ -15,22 +12,16 @@ Namespace XUnitTestProject1
 
         <Fact>
         Sub TestSub()
-            Assert.Equal(GetColorFromName("Default").ForegroundColor, Color.Black)
-            Assert.Equal(GetColorFromName("default").ForegroundColor, Color.Black)
-            Assert.Equal(GetColorFromName("").ForegroundColor, Color.Black)
-            Assert.Equal(GetColorFromName("anything").ForegroundColor, Color.Red)
-            Assert.Equal(GetColorFromName("event name").ForegroundColor, Color.Black)
-        End Sub
-
-        <Fact>
-        Sub TestThemes()
-            Dim ExecutablePath As String = Reflection.Assembly.GetExecutingAssembly().Location
-            Dim ExecutableDirectory As String = Directory.GetParent(ExecutablePath).FullName
-            Dim ThemePath As String = Path.Combine(ExecutableDirectory, "Assets", "BigFace.xml")
-            Dim CurrentTheme As Themes = LoadNewTheme(ThemePath)
-            Dim TempDictionary As New Dictionary(Of String, (ForeGround As Color, Background As Color))(StringComparer.OrdinalIgnoreCase)
-            LoadDictionaryFromTheme(CurrentTheme, TempDictionary)
-            Stop
+            Assert.Equal(GetColorFromName("").Foreground, Color.FromArgb(Color.Black.R, Color.Black.G, Color.Black.B))
+            Assert.Equal(GetColorFromName("").Background, Color.FromArgb(Color.White.R, Color.White.G, Color.White.B))
+            Assert.Equal(GetColorFromName("anything").Foreground, Color.FromArgb(Color.Red.R, Color.Red.G, Color.Red.B))
+            Assert.Equal(GetColorFromName("anything").Background, Color.FromArgb(Color.White.R, Color.White.G, Color.White.B))
+            Assert.Equal(GetColorFromName("default").Foreground, Color.FromArgb(Color.Black.R, Color.Black.G, Color.Black.B))
+            Assert.Equal(GetColorFromName("default").Background, Color.FromArgb(Color.White.R, Color.White.G, Color.White.B))
+            Assert.Equal(GetColorFromName("Default").Foreground, Color.FromArgb(Color.Black.R, Color.Black.G, Color.Black.B))
+            Assert.Equal(GetColorFromName("Default").Background, Color.FromArgb(Color.White.R, Color.White.G, Color.White.B))
+            Assert.Equal(GetColorFromName("keyword - control").Foreground, Color.FromArgb(143, 8, 196))
+            Assert.Equal(GetColorFromName("keyword - control").Background, Color.FromArgb(Color.White.R, Color.White.G, Color.White.B))
         End Sub
 
     End Class

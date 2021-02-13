@@ -1,4 +1,8 @@
-﻿Public NotInheritable Class CoverageColors
+﻿' Licensed to the .NET Foundation under one or more agreements.
+' The .NET Foundation licenses this file to you under the MIT license.
+' See the LICENSE file in the project root for more information.
+
+Public NotInheritable Class CoverageColors
 
     Public Shared ReadOnly ColorMappingDictionary As New Dictionary(Of String, (Foreground As Color, Background As Color)) From {
       {"Default", (Color.FromArgb(255, 255, 255, 255), Color.White)},
@@ -9,15 +13,6 @@
       {"Method Hit", (Color.LightGreen, Color.White)},
       {"Method Missed", (Color.LightPink, Color.White)}
 }
-
-    Public Shared Property BackColorDefault As Color
-        Get
-            Return ColorMappingDictionary("Default").Background
-        End Get
-        Set(value As Color)
-            ColorMappingDictionary("Default") = (value, ColorMappingDictionary("Default").Background)
-        End Set
-    End Property
 
     Public Shared Property BranchHit As Color
         Get

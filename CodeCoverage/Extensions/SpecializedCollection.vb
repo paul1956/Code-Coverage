@@ -4,6 +4,7 @@
 Imports System.Runtime.CompilerServices
 
 Partial Public Module SpecializedCollection
+
     <Extension>
     Public Function Last(StringCollection As Specialized.StringCollection) As String
 

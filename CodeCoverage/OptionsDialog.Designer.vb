@@ -30,12 +30,6 @@ Partial Class OptionsDialog
         Me.ProjectDirectoryList = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
-        Me.CodeCoverageComboBox = New System.Windows.Forms.ComboBox()
-        Me.CodeCoverageLabel = New System.Windows.Forms.Label()
-        Me.UpdateCodeCoverageColorButton = New System.Windows.Forms.Button()
-        Me.SyntaxHighlighingColorsLabel = New System.Windows.Forms.Label()
-        Me.SyntaxHighlighingColorsComboBox = New System.Windows.Forms.ComboBox()
-        Me.UpdateSyntaxHighlighingColorsButton = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,7 +41,7 @@ Partial Class OptionsDialog
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(362, 323)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(362, 76)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
@@ -100,89 +94,13 @@ Partial Class OptionsDialog
         Me.ColorDialog1.AnyColor = True
         Me.ColorDialog1.FullOpen = True
         '
-        'CodeCoverageComboBox
-        '
-        Me.CodeCoverageComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.CodeCoverageComboBox.DropDownHeight = 400
-        Me.CodeCoverageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CodeCoverageComboBox.DropDownWidth = 300
-        Me.CodeCoverageComboBox.FormattingEnabled = True
-        Me.CodeCoverageComboBox.IntegralHeight = False
-        Me.CodeCoverageComboBox.Location = New System.Drawing.Point(35, 137)
-        Me.CodeCoverageComboBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.CodeCoverageComboBox.MaxDropDownItems = 20
-        Me.CodeCoverageComboBox.Name = "CodeCoverageComboBox"
-        Me.CodeCoverageComboBox.Size = New System.Drawing.Size(454, 24)
-        Me.CodeCoverageComboBox.TabIndex = 3
-        '
-        'CodeCoverageLabel
-        '
-        Me.CodeCoverageLabel.AutoSize = True
-        Me.CodeCoverageLabel.Location = New System.Drawing.Point(35, 115)
-        Me.CodeCoverageLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.CodeCoverageLabel.Name = "CodeCoverageLabel"
-        Me.CodeCoverageLabel.Size = New System.Drawing.Size(125, 15)
-        Me.CodeCoverageLabel.TabIndex = 4
-        Me.CodeCoverageLabel.Text = "Code Coverage Colors"
-        '
-        'UpdateCodeCoverageColorButton
-        '
-        Me.UpdateCodeCoverageColorButton.Location = New System.Drawing.Point(312, 97)
-        Me.UpdateCodeCoverageColorButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.UpdateCodeCoverageColorButton.Name = "UpdateCodeCoverageColorButton"
-        Me.UpdateCodeCoverageColorButton.Size = New System.Drawing.Size(177, 27)
-        Me.UpdateCodeCoverageColorButton.TabIndex = 5
-        Me.UpdateCodeCoverageColorButton.Text = "Update Code Coverage Color"
-        Me.UpdateCodeCoverageColorButton.UseVisualStyleBackColor = True
-        '
-        'SyntaxHighlighingColorsLabel
-        '
-        Me.SyntaxHighlighingColorsLabel.AutoSize = True
-        Me.SyntaxHighlighingColorsLabel.Location = New System.Drawing.Point(35, 197)
-        Me.SyntaxHighlighingColorsLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.SyntaxHighlighingColorsLabel.Name = "SyntaxHighlighingColorsLabel"
-        Me.SyntaxHighlighingColorsLabel.Size = New System.Drawing.Size(145, 15)
-        Me.SyntaxHighlighingColorsLabel.TabIndex = 6
-        Me.SyntaxHighlighingColorsLabel.Text = "Syntax Highlighing Colors"
-        '
-        'SyntaxHighlighingColorsComboBox
-        '
-        Me.SyntaxHighlighingColorsComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.SyntaxHighlighingColorsComboBox.DropDownHeight = 400
-        Me.SyntaxHighlighingColorsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.SyntaxHighlighingColorsComboBox.DropDownWidth = 300
-        Me.SyntaxHighlighingColorsComboBox.FormattingEnabled = True
-        Me.SyntaxHighlighingColorsComboBox.IntegralHeight = False
-        Me.SyntaxHighlighingColorsComboBox.Location = New System.Drawing.Point(35, 224)
-        Me.SyntaxHighlighingColorsComboBox.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.SyntaxHighlighingColorsComboBox.MaxDropDownItems = 20
-        Me.SyntaxHighlighingColorsComboBox.Name = "SyntaxHighlighingColorsComboBox"
-        Me.SyntaxHighlighingColorsComboBox.Size = New System.Drawing.Size(454, 24)
-        Me.SyntaxHighlighingColorsComboBox.TabIndex = 7
-        '
-        'UpdateSyntaxHighlighingColorsButton
-        '
-        Me.UpdateSyntaxHighlighingColorsButton.Location = New System.Drawing.Point(312, 186)
-        Me.UpdateSyntaxHighlighingColorsButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.UpdateSyntaxHighlighingColorsButton.Name = "UpdateSyntaxHighlighingColorsButton"
-        Me.UpdateSyntaxHighlighingColorsButton.Size = New System.Drawing.Size(177, 27)
-        Me.UpdateSyntaxHighlighingColorsButton.TabIndex = 8
-        Me.UpdateSyntaxHighlighingColorsButton.Text = "Update Syntax Highlighing Colors"
-        Me.UpdateSyntaxHighlighingColorsButton.UseVisualStyleBackColor = True
-        '
         'OptionsDialog
         '
         Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(546, 370)
-        Me.Controls.Add(Me.UpdateSyntaxHighlighingColorsButton)
-        Me.Controls.Add(Me.SyntaxHighlighingColorsComboBox)
-        Me.Controls.Add(Me.SyntaxHighlighingColorsLabel)
-        Me.Controls.Add(Me.UpdateCodeCoverageColorButton)
-        Me.Controls.Add(Me.CodeCoverageLabel)
-        Me.Controls.Add(Me.CodeCoverageComboBox)
+        Me.ClientSize = New System.Drawing.Size(546, 123)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ProjectDirectoryList)
         Me.Controls.Add(Me.TableLayoutPanel1)
@@ -205,10 +123,4 @@ Partial Class OptionsDialog
     Friend WithEvents ProjectDirectoryList As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents ColorDialog1 As ColorDialog
-    Friend WithEvents CodeCoverageComboBox As ComboBox
-    Friend WithEvents CodeCoverageLabel As Label
-    Friend WithEvents UpdateCodeCoverageColorButton As Button
-    Friend WithEvents SyntaxHighlighingColorsLabel As Label
-    Friend WithEvents SyntaxHighlighingColorsComboBox As ComboBox
-    Friend WithEvents UpdateSyntaxHighlighingColorsButton As Button
 End Class

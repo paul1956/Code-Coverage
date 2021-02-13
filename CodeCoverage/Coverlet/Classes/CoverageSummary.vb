@@ -4,9 +4,20 @@
     Private _linesHit As Long
     Private _maxLineCount As Long
     Private _methodsHit As Long
+    Private _methodsHitPercent As Double
     Private _totalBranches As Long
     Private _totalLines As Long
     Private _totalMethods As Long
+
+    Public Property MethodsHitPercent As Double
+        Get
+            Return _methodsHitPercent
+        End Get
+        Set
+            _methodsHitPercent = Value
+        End Set
+    End Property
+
     Public ReadOnly Property BranchesHit As Long
         Get
             Return _branchesHit
@@ -30,6 +41,7 @@
             Return _maxLineCount
         End Get
     End Property
+
     Public ReadOnly Property MethodsHit As Long
         Get
             Return _methodsHit
@@ -53,6 +65,7 @@
             Return _totalMethods
         End Get
     End Property
+
     Friend Sub Add(Value As CoverageSummary)
         _branchesHit += Value.BranchesHit
         _lineHits += Value.LineHits
@@ -101,7 +114,8 @@
             TempString &= $"Branch Coverage ={Math.Round(BranchesHit / TotalBranches * 100, 2, MidpointRounding.AwayFromZero)}% "
         End If
         If _totalMethods > 0 Then
-            TempString &= $"Methods Coverage ={Math.Round(MethodsHit / TotalMethods * 100, 2, MidpointRounding.AwayFromZero)}% "
+            _methodsHitPercent = Math.Round(MethodsHit / TotalMethods * 100, 2, MidpointRounding.AwayFromZero)
+            TempString &= $"Methods Coverage ={MethodsHitPercent}% "
         End If
         TempString &= $"Max Line Count = {MaxLineCount.ToString("N0", Globalization.CultureInfo.InvariantCulture)}"
         Return TempString

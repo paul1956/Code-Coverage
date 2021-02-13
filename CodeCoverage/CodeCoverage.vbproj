@@ -3,17 +3,20 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net5.0-windows</TargetFramework>
         <RootNamespace>CodeCoverage</RootNamespace>
-        <StartupObject>CodeCoverage.Form1</StartupObject>
+        <StartupObject>Sub Main</StartupObject>
+        <MyType>WindowsForms</MyType>
         <UseWindowsForms>true</UseWindowsForms>
         <LangVersion>16</LangVersion>
         <OptionCompare>Text</OptionCompare>
         <OptionExplicit>On</OptionExplicit>
         <OptionInfer>Off</OptionInfer>
         <OptionStrict>On</OptionStrict>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     </PropertyGroup>
     <PropertyGroup>
         <Version>2.0.0.0</Version>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.5.0.0</AssemblyVersion>
         <ProductVersion>2.0.0.0</ProductVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <RepositoryType>GitHub</RepositoryType>
@@ -21,10 +24,18 @@
         <Authors>Paul M Cohen</Authors>
         <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
         <PackageTags>Code Coverage</PackageTags>
+        <FileVersion>2.5.0.0</FileVersion>
+        <Company>Travel By Paul</Company>
     </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="Themes\**" />
+      <EmbeddedResource Remove="Themes\**" />
+      <None Remove="Themes\**" />
+    </ItemGroup>
     <ItemGroup>
       <Compile Remove="Extensions\ArrayListExtension.vb" />
       <Compile Remove="My Project\User.vb" />
+      <Compile Remove="NativeTypes.vb" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="CodeCoverageForm.Designer.vb">
@@ -32,6 +43,11 @@
         </Compile>
         <Compile Update="LineNumbersForRichTextBox.vb">
             <SubType>Component</SubType>
+        </Compile>
+        <Compile Update="My Project\Application.Designer.vb">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>Application.myapp</DependentUpon>
         </Compile>
         <Compile Update="My Project\Settings.Designer.vb">
             <AutoGen>True</AutoGen>
@@ -57,23 +73,19 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis">
-            <Version>3.7.0</Version>
+            <Version>3.8.0</Version>
         </PackageReference>
         <PackageReference Include="Microsoft.CodeAnalysis.Common">
-            <Version>3.7.0</Version>
+            <Version>3.8.0</Version>
         </PackageReference>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
-            <Version>3.7.0</Version>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-            <Version>3.3.1</Version>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
+            <Version>3.8.0</Version>
         </PackageReference>
         <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common">
-            <Version>3.7.0</Version>
+            <Version>3.8.0</Version>
         </PackageReference>
         <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
         <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     </ItemGroup>
     <ItemGroup>

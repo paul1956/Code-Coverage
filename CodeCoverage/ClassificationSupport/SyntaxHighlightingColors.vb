@@ -1,0 +1,120 @@
+﻿' Licensed to the .NET Foundation under one or more agreements.
+' The .NET Foundation licenses this file to you under the MIT license.
+' See the LICENSE file in the project root for more information.
+Imports System.IO
+
+Public NotInheritable Class SyntaxHighlightingColors
+
+    Public Shared ReadOnly ColorMappingDictionary As New Dictionary(Of String, ColorDescriptor)(StringComparer.OrdinalIgnoreCase) From {
+        {ThemeDefaultColor, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {ClassName, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {Comment, New ColorDescriptor(Color.FromArgb(0, 100, 0), Color.FromArgb(255, 255, 255))},
+        {ConstantName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {Keyword_Control, New ColorDescriptor(Color.FromArgb(143, 8, 196), Color.FromArgb(255, 255, 255))},
+        {DelegateName, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {EnumMemberName, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {EnumName, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {ThemeErrorColor, New ColorDescriptor(Color.FromArgb(255, 0, 0), Color.FromArgb(255, 255, 255))},
+        {EventName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {ExcludedCode, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {ExtensionMethodName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {FieldName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {FunctionKeyword, New ColorDescriptor(Color.FromArgb(0, 0, 255), Color.FromArgb(255, 255, 255))},
+        {Identifier, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {InterfaceName, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {Keyword, New ColorDescriptor(Color.FromArgb(0, 0, 255), Color.FromArgb(255, 255, 255))},
+        {LabelName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {LocalName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {MethodName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {ModuleName, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {NamespaceName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {NumericLiteral, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {[Operator], New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {Operator_Overloaded, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {ParameterName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {PreprocessorKeyword, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {PreprocessorText, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {PropertyName, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {Punctuation, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {Regex_Alternation, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {Regex_Anchor, New ColorDescriptor(Color.FromArgb(255, 192, 203), Color.FromArgb(255, 255, 255))},
+        {Regex_CharacterClass, New ColorDescriptor(Color.FromArgb(0, 0, 255), Color.FromArgb(255, 255, 255))},
+        {Regex_Comment, New ColorDescriptor(Color.FromArgb(0, 100, 0), Color.FromArgb(255, 255, 255))},
+        {Regex_Grouping, New ColorDescriptor(Color.FromArgb(0, 128, 128), Color.FromArgb(255, 255, 255))},
+        {Regex_OtherEscape, New ColorDescriptor(Color.FromArgb(165, 42, 42), Color.FromArgb(255, 255, 255))},
+        {Regex_Quantifier, New ColorDescriptor(Color.FromArgb(255, 192, 203), Color.FromArgb(255, 255, 255))},
+        {Regex_SelfEscapedCharacter, New ColorDescriptor(Color.FromArgb(139, 0, 0), Color.FromArgb(255, 255, 255))},
+        {Regex_Text, New ColorDescriptor(Color.FromArgb(139, 0, 0), Color.FromArgb(255, 255, 255))},
+        {StaticSymbol, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {String_EscapeCharacter, New ColorDescriptor(Color.FromArgb(0, 0, 139), Color.FromArgb(255, 255, 255))},
+        {StringLiteral, New ColorDescriptor(Color.FromArgb(163, 21, 21), Color.FromArgb(255, 255, 255))},
+        {StructName, New ColorDescriptor(Color.FromArgb(43, 145, 175), Color.FromArgb(255, 255, 255))},
+        {Text, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {TypeParameterName, New ColorDescriptor(Color.FromArgb(169, 169, 169), Color.FromArgb(255, 255, 255))},
+        {String_VerbatimLiteral, New ColorDescriptor(Color.FromArgb(128, 0, 0), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_AttributeName, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_AttributeQuotes, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_AttributeValue, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_CDataSection, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_Comment, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_Delimiter, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_EntityReference, New ColorDescriptor(Color.FromArgb(0, 128, 0), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_Name, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_ProcessingInstruction, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlDocComment_Text, New ColorDescriptor(Color.FromArgb(0, 128, 0), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_AttributeName, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_AttributeQuotes, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_AttributeValue, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_CDataSection, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_Comment, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_Delimiter, New ColorDescriptor(Color.FromArgb(100, 100, 185), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_EmbeddedExpression, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_EntityReference, New ColorDescriptor(Color.FromArgb(185, 100, 100), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_Name, New ColorDescriptor(Color.FromArgb(132, 70, 70), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_ProcessingInstruction, New ColorDescriptor(Color.FromArgb(128, 128, 128), Color.FromArgb(255, 255, 255))},
+        {XmlLiteral_Text, New ColorDescriptor(Color.FromArgb(85, 85, 85), Color.FromArgb(255, 255, 255))},
+        {Button, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {CheckBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ComboBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {ContextMenuStrip, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {FloatingMenu, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {FolderBrowserDialog, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {Label, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ClassificationNameStrings.LineNumbersForRichTextBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ListBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {MenuStrip, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {Panel, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {PanelBoarderStyle, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ProgressBar, New ColorDescriptor(Color.FromArgb(0, 120, 215), Color.FromArgb(240, 240, 240))},
+        {RichTextBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {SplitBar, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {SplitContainer, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {StatusBar, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {TextBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {TitleBar, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolBar, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStrip, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripButton, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripCheckBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripComboBox, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255))},
+        {ToolStripLabel, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripMenuItem, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripProgressBar, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripSeparator, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripStatusLabel, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolStripTextProgressBar, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))},
+        {ToolTip, New ColorDescriptor(Color.FromArgb(0, 0, 0), Color.FromArgb(240, 240, 240))}}
+
+    Public Shared Function GetColorFromName(Name As String) As ColorDescriptor
+        If String.IsNullOrWhiteSpace(Name) Then
+            Return New ColorDescriptor(Color.FromArgb(Color.Black.R, Color.Black.G, Color.Black.B), Color.FromArgb(Color.White.R, Color.White.G, Color.White.B))
+        End If
+        Dim returnValue As ColorDescriptor = Nothing
+        If ColorMappingDictionary.TryGetValue(Name, returnValue) Then
+            Return returnValue
+        End If
+        Debug.Print($"GetColorFromName missing({Name})")
+        Return ColorMappingDictionary("error")
+    End Function
+
+End Class

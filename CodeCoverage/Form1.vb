@@ -49,18 +49,12 @@ Public Class Form1
             My.Settings.Save()
         End If
 
-        CoverageColorColors.UpdateColorDictionaryFromFile()
-        SyntaxHighlightingColors.UpdateDictionaryFromFile()
-
         Dim ExecutablePath As String = Reflection.Assembly.GetExecutingAssembly().Location
         Dim ExecutableDirectory As String = Directory.GetParent(ExecutablePath).FullName
         If String.IsNullOrWhiteSpace(My.Settings.LastTheme) Then
             My.Settings.LastTheme = "BigFace.xml"
             My.Settings.Save()
         End If
-        'Dim ThemePath As String = Path.Combine(ExecutableDirectory, "Assets", My.Settings.LastTheme)
-        'Dim CurrentTheme As Themes = CodeColorSelector.LoadNewTheme(ThemePath)
-        'CodeColorSelector.LoadDictionaryFromTheme(CurrentTheme)
 
         If String.IsNullOrWhiteSpace(My.Settings.DefaultProjectDirectory) Then
             My.Settings.DefaultProjectDirectory = GetLatestVisualStudioProjectPath()
@@ -251,11 +245,9 @@ Public Class Form1
             ' contains the full path so it can be opened later...
             If File.Exists(sPath) Then
 
-#Disable Warning CA2000 ' Dispose objects before losing scope
                 Dim clsItem As New ToolStripMenuItem(sPath) With {
                 .Tag = MRUTag & sPath
                 }
-#Enable Warning CA2000 ' Dispose objects before losing scope
                 ' hook into the click event handler so we can open the file later...
                 AddHandler clsItem.Click, AddressOf mnu_MRUList_Click
                 AddHandler clsItem.MouseDown, AddressOf mnu_MRUList_MouseDown
