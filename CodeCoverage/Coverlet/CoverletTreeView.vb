@@ -114,6 +114,18 @@ Namespace Coverlet.Core
                         .Tag = ClassesTag
                     }
                     parentNode.Nodes.Add(childNode)
+                    If ngObject.Key.Contains("/_Closure$", StringComparison.Ordinal) Then
+                        Dim skip As Boolean = False
+                        For Each m As KeyValuePair(Of String, Method) In ngObject.Value
+                            If m.Key.Contains("/_Closure$", StringComparison.Ordinal) Then
+                                skip = True
+                                Continue For
+                            End If
+                        Next
+                        If skip Then
+                            Continue For
+                        End If
+                    End If
                     Dim MethodsCoverageSummary As New CoverageSummary
                     populate4MethodsTreeView(ngObject.Value, childNode, MethodsCoverageSummary, MethodsList, DocumentLongName)
                     ClassesCoverageSummary.Add(MethodsCoverageSummary)
