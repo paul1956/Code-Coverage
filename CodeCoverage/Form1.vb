@@ -24,7 +24,7 @@ Public Class Form1
     Private Shared Function GetSolutionDirectory(FullPath As String) As String
         Dim FullDirectoryName As String = New FileInfo(FullPath).Directory.FullName
         While FullDirectoryName.Length > 0
-            If Directory.GetFiles(FullDirectoryName, "*.sln").Any Then
+            If Directory.GetFiles(FullDirectoryName, "*.sln").Length <> 0 Then
                 Return FullDirectoryName
             End If
             FullDirectoryName = Directory.GetParent(FullDirectoryName)?.FullName
@@ -78,7 +78,7 @@ Public Class Form1
             If TryGetResultsDirectory(Last_jsonFile, TestResultsDirectory) Then
                 Dim LatestCoverageFileDate As Date = Date.MinValue
                 For Each Dir As String In Directory.GetDirectories(TestResultsDirectory)
-                    Dim CoverageFileInfo As FileInfo = New FileInfo(Path.Combine(Dir, CoverageFileName))
+                    Dim CoverageFileInfo As New FileInfo(Path.Combine(Dir, CoverageFileName))
                     If File.Exists(Path.Combine(Dir, CoverageFileName)) Then
                         If CoverageFileInfo.LastWriteTime >= LatestCoverageFileDate Then
                             LatestCoverageFileDate = CoverageFileInfo.LastWriteTime
@@ -111,7 +111,7 @@ Public Class Form1
     End Sub
 
     Private Sub mnu_MRUList_MouseDown(sender As Object, e As MouseEventArgs)
-        If e.Button = Windows.Forms.MouseButtons.Right Then
+        If e.Button = MouseButtons.Right Then
             Clipboard.SetText(CType(sender, ToolStripMenuItem).Text)
         End If
     End Sub
@@ -179,7 +179,7 @@ Public Class Form1
 
     Private Sub mnuFileOpenLast_jsonFile_Click(sender As Object, e As EventArgs) Handles mnuFileOpenLast_jsonFile.Click
         Dim CoverageFileNameWithPath As String = CType(sender, ToolStripMenuItem).Tag.ToString
-        Dim FileInfo As FileInfo = New FileInfo(CoverageFileNameWithPath)
+        Dim FileInfo As New FileInfo(CoverageFileNameWithPath)
         Text = $"Code Coverage, file {FileInfo.Name}, Last Updated {FileInfo.LastWriteTime.Date.ToShortDateString} {FileInfo.LastWriteTime.TimeOfDay.Hours}:{FileInfo.LastWriteTime.ToShortTimeString}"
         OpenCoverageFileAndLoadTreeView(CoverageFileNameWithPath)
     End Sub
@@ -216,14 +216,14 @@ Public Class Form1
     End Sub
 
     Private Sub MRU_Update(TopLevelMenu As ToolStripMenuItem)
-        Dim Seperator As ToolStripSeparator = Nothing
+        Dim Separator As ToolStripSeparator = Nothing
         ' clear MRU menu items...
         Dim clsItems As New List(Of ToolStripItem)
         ' create a temporary collection containing every MRU menu item
         ' (identified by the tag text when added to the list)...
         For Each clsMenu As ToolStripItem In TopLevelMenu.DropDownItems
             If TypeOf clsMenu Is ToolStripSeparator Then
-                Seperator = CType(clsMenu, ToolStripSeparator)
+                Separator = CType(clsMenu, ToolStripSeparator)
             End If
             If clsMenu.Tag IsNot Nothing Then
                 If clsMenu.Tag.ToString().StartsWith(MRUTag, StringComparison.InvariantCulture) Then
@@ -258,9 +258,9 @@ Public Class Form1
         ' show separator...
         My.Settings.Save()
         If My.Settings.MRU_Data.Count > 0 Then
-            Seperator.Visible = True
+            Separator.Visible = True
         Else
-            Seperator.Visible = False
+            Separator.Visible = False
         End If
     End Sub
 
@@ -303,7 +303,7 @@ Public Class Form1
     End Sub
 
     Private Sub StatusStripCurrentFileName_MouseDown(sender As Object, e As MouseEventArgs) Handles StatusStripCurrentFileName.MouseDown
-        If e.Button = Windows.Forms.MouseButtons.Right Then
+        If e.Button = MouseButtons.Right Then
             Clipboard.SetText(text:=CType(sender, ToolStripStatusLabel).Text)
         End If
     End Sub

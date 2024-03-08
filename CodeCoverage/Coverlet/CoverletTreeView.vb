@@ -25,7 +25,7 @@ Namespace Coverlet.Core
 
             _CodeCoverageRoot = Newtonsoft.Json.JsonConvert.DeserializeObject(Of ModulesDictionary)(jsonString)
 
-            Dim FileInfo As FileInfo = New FileInfo(JSONFileWithPath)
+            Dim FileInfo As New FileInfo(JSONFileWithPath)
             Dim parentNode As TreeNode = TreeView1.Nodes.Add($"Code Coverage, file {FileInfo.Directory.Name}{Path.PathSeparator}{FileInfo.Name}, Last Updated {FileInfo.LastWriteTime.Date.ToShortDateString} {FileInfo.LastWriteTime.TimeOfDay.Hours}:{FileInfo.LastWriteTime.ToShortTimeString}")
             TreeView1.Nodes(0).Tag = CodeCoverageTag
             populate1ModulesTreeView(CodeCoverageRoot, parentNode, DocumentList, MethodsList)
@@ -166,7 +166,7 @@ Namespace Coverlet.Core
             If childObjects.Lines.Count > 0 Then
                 For Each ngObject As KeyValuePair(Of Integer, Integer) In childObjects.Lines
                     Dim LineBranchList As New List(Of BranchInfo)
-                    Dim Node As TreeNode = New TreeNode($"{LineTag} {ngObject.Key}, Hits: {ngObject.Value} branch = {GetBranchSummary(LineBranchList, ngObject.Key)}") With {
+                    Dim Node As New TreeNode($"{LineTag} {ngObject.Key}, Hits: {ngObject.Value} branch = {GetBranchSummary(LineBranchList, ngObject.Key)}") With {
                         .Tag = LineTag
                     }
                     If ngObject.Value > 0 Then

@@ -95,7 +95,7 @@ Public Module ColorRTB
 
     <Extension>
     Private Function SpaceCount(LineText As String) As Integer
-        If Not LineText.Any Then
+        If LineText.Length = 0 Then
             Return 0
         End If
         For i As Integer = 0 To LineText.Length - 1

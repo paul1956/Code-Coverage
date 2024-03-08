@@ -31,9 +31,9 @@ Public Class MethodClass
         End If
         Index = MethodNameWithParameters.IndexOf("(", StringComparison.InvariantCultureIgnoreCase)
         If Index > 0 AndAlso Index < 70 Then
-            Return MethodNameWithParameters.Substring(0, 70) & "...)"
+            Return String.Concat(MethodNameWithParameters.AsSpan(0, 70), "...)")
         End If
-        Return MethodNameWithParameters.Substring(0, Math.Min(70, MethodNameWithParameters.Length)) & "..."
+        Return String.Concat(MethodNameWithParameters.AsSpan(0, Math.Min(70, MethodNameWithParameters.Length)), "...")
     End Function
 
 End Class

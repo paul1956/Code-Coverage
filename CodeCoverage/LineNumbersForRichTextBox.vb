@@ -483,7 +483,7 @@ Public Class LineNumbersForRichTextBox : Inherits Control
     ''' <remarks></remarks>
     Private Sub Update_SizeAndPosition()
         If AutoSize = True Then Exit Sub
-        If Me.Dock = DockStyle.Bottom Or Me.Dock = DockStyle.Fill Or Me.Dock = DockStyle.Top Then Exit Sub
+        If Dock = DockStyle.Bottom Or Dock = DockStyle.Fill Or Dock = DockStyle.Top Then Exit Sub
         Dim zNewLocation As Point = Location, zNewSize As Size = Size
 
         If _zAutoSizing = True Then
@@ -495,7 +495,7 @@ Public Class LineNumbersForRichTextBox : Inherits Control
                     Size = zNewSize
 
                     '--- zParent isNot Nothing for the following cases
-                Case Me.Dock = DockStyle.Left Or Me.Dock = DockStyle.Right
+                Case Dock = DockStyle.Left Or Dock = DockStyle.Right
                     If _zAutoSizing_Size.Width > 0 Then zNewSize.Width = _zAutoSizing_Size.Width
                     Width = zNewSize.Width
 
@@ -503,14 +503,14 @@ Public Class LineNumbersForRichTextBox : Inherits Control
                 Case _zDockSide <> LineNumberDockSides.None
                     If _zAutoSizing_Size.Width > 0 Then zNewSize.Width = _zAutoSizing_Size.Width
                     zNewSize.Height = ZParent.Height
-                    If Me._zDockSide = LineNumberDockSides.Left Then zNewLocation.X = ZParent.Left - zNewSize.Width - 1
-                    If Me._zDockSide = LineNumberDockSides.Right Then zNewLocation.X = ZParent.Right + 1
+                    If _zDockSide = LineNumberDockSides.Left Then zNewLocation.X = ZParent.Left - zNewSize.Width - 1
+                    If _zDockSide = LineNumberDockSides.Right Then zNewLocation.X = ZParent.Right + 1
                     zNewLocation.Y = ZParent.Top
                     Location = zNewLocation
                     Size = zNewSize
 
                     ' --- DockSide = None, but AutoSizing is still setting the Width
-                Case Me._zDockSide = LineNumberDockSides.None
+                Case _zDockSide = LineNumberDockSides.None
                     If _zAutoSizing_Size.Width > 0 Then zNewSize.Width = _zAutoSizing_Size.Width
                     Size = zNewSize
 
@@ -527,8 +527,8 @@ Public Class LineNumbersForRichTextBox : Inherits Control
                     ' --- No AutoSizing, but DockSide L/R/H is active so height and position need updates.
                 Case _zDockSide <> LineNumberDockSides.None
                     zNewSize.Height = ZParent.Height
-                    If Me._zDockSide = LineNumberDockSides.Left Then zNewLocation.X = ZParent.Left - zNewSize.Width - 1
-                    If Me._zDockSide = LineNumberDockSides.Right Then zNewLocation.X = ZParent.Right + 1
+                    If _zDockSide = LineNumberDockSides.Left Then zNewLocation.X = ZParent.Left - zNewSize.Width - 1
+                    If _zDockSide = LineNumberDockSides.Right Then zNewLocation.X = ZParent.Right + 1
                     zNewLocation.Y = ZParent.Top
                     Location = zNewLocation
                     Size = zNewSize
@@ -805,7 +805,7 @@ Public Class LineNumbersForRichTextBox : Inherits Control
                                 zPoint = New Point(CInt(_zLNIs(zA)._rectangle.Right - Padding.Right + _zLineNumbers_Offset.Width - zTextSize.Width), CInt(_zLNIs(zA)._rectangle.Bottom - Padding.Bottom + 1 + _zLineNumbers_Offset.Height - zTextSize.Height))
                         End Select
                         '   TextClipping
-                        Dim zItemClipRectangle As Rectangle = New Rectangle(zPoint, zTextSize.ToSize)
+                        Dim zItemClipRectangle As New Rectangle(zPoint, zTextSize.ToSize)
                         If _zLineNumbers_ClipByItemRectangle = True Then
                             '   If selected, the text will be clipped so that it doesn't spill out of its own LineNumberItem-area.
                             '   Only the part of the text inside the LineNumberItem.Rectangle should be visible, so intersect with the ItemRectangle
@@ -861,11 +861,11 @@ Public Class LineNumbersForRichTextBox : Inherits Control
                 zPen = New Pen(_zMarginLines_Color, _zMarginLines_Thickness) With {
                 .DashStyle = _zMarginLines_Style
             }
-                If Me._zMarginLines_Side = LineNumberDockSides.Left Or Me._zMarginLines_Side = LineNumberDockSides.Height Then
+                If _zMarginLines_Side = LineNumberDockSides.Left Or _zMarginLines_Side = LineNumberDockSides.Height Then
                     e.Graphics.DrawLine(zPen, New Point(CInt(Math.Floor(_zMarginLines_Thickness / 2)), 0), New Point(CInt(Math.Floor(_zMarginLines_Thickness / 2)), Height - 1))
                     zP_Left = New Point(CInt(Math.Ceiling(_zMarginLines_Thickness / 2)), CInt(-_zMarginLines_Thickness))
                 End If
-                If Me._zMarginLines_Side = LineNumberDockSides.Right Or Me._zMarginLines_Side = LineNumberDockSides.Height Then
+                If _zMarginLines_Side = LineNumberDockSides.Right Or _zMarginLines_Side = LineNumberDockSides.Height Then
                     e.Graphics.DrawLine(zPen, New Point(CInt(Width - Math.Ceiling(_zMarginLines_Thickness / 2)), 0), New Point(CInt(Width - Math.Ceiling(_zMarginLines_Thickness / 2)), Height - 1))
                     zP_Right = New Point(CInt(Width - Math.Ceiling(_zMarginLines_Thickness / 2)), CInt(Height + _zMarginLines_Thickness))
                 End If
